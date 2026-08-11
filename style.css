@@ -358,6 +358,77 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* =========================================================================
+   STORY SLIDER
+   ========================================================================= */
+.story-slider {
+  max-width: 34rem;
+  margin: 2.4rem auto 0;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 24px 48px -24px rgb(var(--shadow) / 0.35);
+  background: var(--ground-deep);
+}
+.story-slider__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+.story-slider__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.story-slider__img.is-active { opacity: 1; }
+
+.story-slider__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  border: none;
+  background: rgb(255 255 255 / 0.8);
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.story-slider__nav:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+.story-slider__nav--prev { left: 0.7rem; }
+.story-slider__nav--next { right: 0.7rem; }
+
+.story-slider__dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.9rem 0.6rem;
+  background: var(--ground-raised);
+}
+.story-slider__dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--line);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.story-slider__dot.is-active { background: var(--accent); transform: scale(1.3); }
+
+/* =========================================================================
    DETAILS
    ========================================================================= */
 .details { background: var(--ground-raised); }

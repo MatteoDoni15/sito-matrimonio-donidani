@@ -65,6 +65,10 @@ const I18N = {
     days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
     countdownDone: "Oggi è il grande giorno! Non vediamo l'ora di festeggiare con voi.",
 
+    sliderPrev: "Foto precedente",
+    sliderNext: "Foto successiva",
+    sliderGoTo: "Vai alla foto",
+
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confermate la vostra presenza",
     rsvpIntro: "Per organizzare al meglio questo giorno speciale, vi chiediamo di rispondere entro il",
@@ -128,6 +132,10 @@ const I18N = {
     countdownTitle: "Mai sunt doar...",
     days: "Zile", hours: "Ore", minutes: "Minute", seconds: "Secunde",
     countdownDone: "Astăzi este marea zi! Abia așteptăm să sărbătorim alături de voi.",
+
+    sliderPrev: "Fotografia anterioară",
+    sliderNext: "Fotografia următoare",
+    sliderGoTo: "Mergi la fotografia",
 
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confirmați-vă prezența",
@@ -226,6 +234,7 @@ function applyLanguage(lang) {
   updateAttendingUI();
   updatePlusOneUI();
   updateChildrenUI();
+  updateSliderAria();
 }
 
 function capitalize(str) {
@@ -386,6 +395,86 @@ function initForm() {
 }
 
 /* =========================================================================
+   STORY PHOTO SLIDER
+   ========================================================================= */
+function updateSliderAria() {
+  const root = document.getElementById("storySlider");
+  if (!root) return;
+  const t = I18N[currentLang];
+  const prevBtn = root.querySelector(".story-slider__nav--prev");
+  const nextBtn = root.querySelector(".story-slider__nav--next");
+  if (prevBtn) prevBtn.setAttribute("aria-label", t.sliderPrev);
+  if (nextBtn) nextBtn.setAttribute("aria-label", t.sliderNext);
+  root.querySelectorAll(".story-slider__dot").forEach((dot, i) => {
+    dot.setAttribute("aria-label", t.sliderGoTo + " " + (i + 1));
+  });
+}
+
+function initStorySlider() {
+  const root = document.getElementById("storySlider");
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll(".story-slider__img"));
+  const dotsWrap = root.querySelector(".story-slider__dots");
+  const prevBtn = root.querySelector(".story-slider__nav--prev");
+  const nextBtn = root.querySelector(".story-slider__nav--next");
+  if (!slides.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0;
+  let timer = null;
+
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "story-slider__dot";
+    dot.setAttribute("role", "tab");
+    dot.addEventListener("click", () => goTo(i, true));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle("is-active", i === index));
+    dots.forEach((d, i) => {
+      d.classList.toggle("is-active", i === index);
+      d.setAttribute("aria-selected", i === index ? "true" : "false");
+    });
+  }
+
+  function goTo(i, userTriggered) {
+    index = (i + slides.length) % slides.length;
+    render();
+    if (userTriggered) restartAutoplay();
+  }
+
+  function restartAutoplay() {
+    clearInterval(timer);
+    if (reduceMotion) return;
+    timer = setInterval(() => goTo(index + 1), 4500);
+  }
+
+  prevBtn.addEventListener("click", () => goTo(index - 1, true));
+  nextBtn.addEventListener("click", () => goTo(index + 1, true));
+  root.addEventListener("mouseenter", () => clearInterval(timer));
+  root.addEventListener("mouseleave", restartAutoplay);
+  root.addEventListener("focusin", () => clearInterval(timer));
+  root.addEventListener("focusout", restartAutoplay);
+
+  let touchStartX = null;
+  root.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  root.addEventListener("touchend", (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? index + 1 : index - 1, true);
+    touchStartX = null;
+  });
+
+  render();
+  updateSliderAria();
+  restartAutoplay();
+}
+
+/* =========================================================================
    FALLING LEAVES (decorative canvas, respects prefers-reduced-motion)
    ========================================================================= */
 function initLeaves() {
@@ -474,6 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(tickCountdown, 1000);
   initForm();
   initLeaves();
+  initStorySlider();
 
   document.getElementById("year").textContent = new Date(CONFIG.weddingDateISO).getFullYear();
 });
