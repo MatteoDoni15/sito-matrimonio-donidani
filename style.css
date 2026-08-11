@@ -213,7 +213,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 6rem 1.5rem 3rem;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 8%, rgb(62 102 144 / 0.16), transparent 60%),
+    radial-gradient(ellipse 85% 70% at 50% 4%, rgb(62 102 144 / 0.3), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 15% 95%, rgb(183 203 224 / 0.35), transparent 60%),
     linear-gradient(180deg, var(--ground-raised) 0%, var(--ground) 100%);
 }
 
@@ -350,6 +351,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================================
    STORY
    ========================================================================= */
+.story {
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgb(62 102 144 / 0.1), transparent 65%);
+}
+
 .story__text {
   font-size: 1.08rem;
   color: var(--ink-soft);
@@ -476,7 +481,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================================
    DETAILS
    ========================================================================= */
-.details { background: var(--ground-raised); }
+.details {
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 0%, rgb(62 102 144 / 0.16), transparent 65%),
+    var(--ground-deep);
+}
 .details .section-inner { max-width: var(--wide-w); }
 
 .details__grid {
@@ -491,10 +500,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .detail-card {
-  background: var(--ground);
-  border: 1px solid var(--line);
+  background: var(--ground-raised);
+  border: 1px solid var(--gold-line);
   border-radius: var(--card-radius);
   padding: 1.9rem 1.7rem;
+  box-shadow: 0 18px 36px -20px rgb(var(--shadow) / 0.3);
 }
 .detail-card h3 {
   font-size: 1.3rem;
@@ -580,6 +590,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================================
    RSVP
    ========================================================================= */
+.rsvp {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgb(62 102 144 / 0.14), transparent 65%),
+    var(--ground-deep);
+}
+
 .rsvp__intro {
   color: var(--ink-soft);
   margin-bottom: 2.2rem;
@@ -590,7 +606,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rsvp-form {
   text-align: left;
   background: var(--ground-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--gold-line);
   border-radius: var(--card-radius);
   padding: 2rem;
   display: flex;
@@ -609,7 +625,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .field input[type="text"],
 .field input[type="number"],
 .field textarea {
-  border: 1px solid var(--line);
+  border: 1px solid var(--gold-line);
   background: var(--ground);
   color: var(--ink);
   border-radius: 12px;
@@ -675,6 +691,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================================
    CONTACT
    ========================================================================= */
+.contact {
+  background: var(--ground-deep);
+}
+
 .contact__email {
   display: inline-block;
   margin-top: 0.6rem;
