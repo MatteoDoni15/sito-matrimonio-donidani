@@ -396,7 +396,7 @@ function initLeaves() {
 
   const ctx = canvas.getContext("2d");
   let w, h, dpr;
-  const colors = ["#b5451d", "#c89b3c", "#7a2e2e", "#a8672f"];
+  const colors = ["#3e6690", "#c29a5d", "#2e4a63", "#7faedd"];
   const leaves = [];
   const COUNT = 16;
 
