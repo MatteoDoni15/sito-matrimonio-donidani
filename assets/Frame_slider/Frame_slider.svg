@@ -38,7 +38,7 @@
    id="BACKGROUND">
 	<rect
    id="XMLID_1_"
-   style="fill:#F7F6F5;"
+   style="fill:none;"
    width="3000"
    height="2000" />
 </g>
@@ -47,7 +47,7 @@
 	<rect
    x="298"
    y="262"
-   style="fill:#FFFFFF;stroke:#C1B49A;stroke-width:18;stroke-miterlimit:10;"
+   style="fill:none;stroke:#C1B49A;stroke-width:18;stroke-miterlimit:10;"
    width="2404"
    height="1476"
    id="rect1" />

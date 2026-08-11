@@ -399,25 +399,28 @@ function initForm() {
    ========================================================================= */
 function updateSliderAria() {
   const root = document.getElementById("storySlider");
+  const dotsWrap = document.getElementById("storySliderDots");
   if (!root) return;
   const t = I18N[currentLang];
   const prevBtn = root.querySelector(".story-slider__nav--prev");
   const nextBtn = root.querySelector(".story-slider__nav--next");
   if (prevBtn) prevBtn.setAttribute("aria-label", t.sliderPrev);
   if (nextBtn) nextBtn.setAttribute("aria-label", t.sliderNext);
-  root.querySelectorAll(".story-slider__dot").forEach((dot, i) => {
-    dot.setAttribute("aria-label", t.sliderGoTo + " " + (i + 1));
-  });
+  if (dotsWrap) {
+    dotsWrap.querySelectorAll(".story-slider__dot").forEach((dot, i) => {
+      dot.setAttribute("aria-label", t.sliderGoTo + " " + (i + 1));
+    });
+  }
 }
 
 function initStorySlider() {
   const root = document.getElementById("storySlider");
+  const dotsWrap = document.getElementById("storySliderDots");
   if (!root) return;
   const slides = Array.from(root.querySelectorAll(".story-slider__img"));
-  const dotsWrap = root.querySelector(".story-slider__dots");
   const prevBtn = root.querySelector(".story-slider__nav--prev");
   const nextBtn = root.querySelector(".story-slider__nav--next");
-  if (!slides.length) return;
+  if (!slides.length || !dotsWrap) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let index = 0;
