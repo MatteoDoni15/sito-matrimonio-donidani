@@ -10,7 +10,7 @@ const GALLERY_CONFIG = {
 
 const GALLERY_I18N = {
   it: {
-    pageTitle: "Le foto del matrimonio — Matteo & Anca Daniela",
+    pageTitle: "Le foto del matrimonio — Matteo &  Daniela",
     backLink: "← Torna al sito",
     eyebrow: "In tempo reale",
     title: "Le foto della festa",
@@ -28,7 +28,7 @@ const GALLERY_I18N = {
     of: (i, n) => i + " di " + n
   },
   ro: {
-    pageTitle: "Pozele de la nuntă — Matteo & Anca Daniela",
+    pageTitle: "Pozele de la nuntă — Matteo &  Daniela",
     backLink: "← Înapoi la site",
     eyebrow: "În timp real",
     title: "Pozele de la petrecere",

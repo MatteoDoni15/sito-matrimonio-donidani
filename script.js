@@ -65,7 +65,7 @@ const I18N = {
     dressCodeValue: "Elegante, nei toni caldi dell'autunno",
     detailsNote: "Vi terremo aggiornati con la mappa e tutti i dettagli via email.",
 
-    countdownEyebrow: "Manca sempre meno",
+    countdownEyebrow: "M sempre meno",
     countdownTitle: "Il conto alla rovescia",
     days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
     countdownDone: "Oggi è il grande giorno! Non vediamo l'ora di festeggiare con voi.",
@@ -115,7 +115,7 @@ const I18N = {
     contactEyebrow: "Domande?",
     contactText: "Scrivici quando vuoi, a:",
     footerThanks: "Con affetto,",
-    footerHashtag: "#MatteoEAncaDaniela",
+    footerHashtag: "#MatteoEDaniela",
 
     dateLocale: "it-IT",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
@@ -192,7 +192,7 @@ const I18N = {
     contactEyebrow: "Întrebări?",
     contactText: "Scrie-ne oricând, la:",
     footerThanks: "Cu drag,",
-    footerHashtag: "#MatteoSiAnca",
+    footerHashtag: "#MatteoSi",
 
     dateLocale: "ro-RO",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
