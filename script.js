@@ -49,7 +49,7 @@ const CONFIG = {
 const I18N = {
   it: {
     pageTitle: "Matteo & Daniela — Il nostro matrimonio",
-    envelopeHint: "Tocca per aprire l'invito",
+    envelopeHint: "Click to Open",
     navRsvp: "RSVP",
     heroEyebrow: "Ci sposiamo",
     heroSubtitle: "Con gioia nel cuore, vi invitiamo a festeggiare con noi l'inizio di una nuova vita insieme.",
@@ -97,6 +97,15 @@ const I18N = {
     placeholderDietary: "Facci sapere se hai esigenze particolari",
     labelMessage: "Un messaggio per gli sposi",
     placeholderMessage: "Scrivi qui i tuoi auguri...",
+
+    giftToggle: "Per chi desiderasse farci un pensiero",
+    giftIntro: "La vostra presenza è già il regalo più bello. Se preferite comunque un gesto, ecco i nostri dati per un bonifico:",
+    giftBeneficiaryLabel: "Beneficiario",
+    giftIbanLabel: "IBAN",
+    giftBicLabel: "BIC/SWIFT",
+    giftBankLabel: "Banca",
+    giftCopy: "Copia",
+    giftCopied: "Copiato!",
 
     photosEyebrow: "Condividi i tuoi scatti",
     photosTitle: "Le foto della festa",
@@ -173,6 +182,15 @@ const I18N = {
     placeholderDietary: "Spune-ne dacă ai nevoi speciale",
     labelMessage: "Un mesaj pentru miri",
     placeholderMessage: "Scrie aici gândurile tale bune...",
+
+    giftToggle: "Pentru cei care doresc să ne facă un cadou",
+    giftIntro: "Prezența voastră este deja cel mai frumos cadou. Dacă preferați totuși un gest, aici găsiți datele pentru un transfer bancar:",
+    giftBeneficiaryLabel: "Beneficiar",
+    giftIbanLabel: "IBAN",
+    giftBicLabel: "BIC/SWIFT",
+    giftBankLabel: "Banca",
+    giftCopy: "Copiază",
+    giftCopied: "Copiat!",
 
     photosEyebrow: "Distribuie pozele tale",
     photosTitle: "Pozele de la petrecere",
@@ -353,6 +371,22 @@ function initForm() {
   document.querySelectorAll('input[name="attending"]').forEach((el) => el.addEventListener("change", updateAttendingUI));
   document.querySelectorAll('input[name="plusOne"]').forEach((el) => el.addEventListener("change", updatePlusOneUI));
   document.querySelectorAll('input[name="children"]').forEach((el) => el.addEventListener("change", updateChildrenUI));
+
+  const copyBtn = document.getElementById("giftCopyBtn");
+  const ibanEl = document.getElementById("giftIbanValue");
+  if (copyBtn && ibanEl) {
+    copyBtn.addEventListener("click", async () => {
+      const iban = ibanEl.textContent.replace(/\s+/g, "");
+      try {
+        await navigator.clipboard.writeText(iban);
+      } catch (err) {
+        return;
+      }
+      const original = copyBtn.textContent;
+      copyBtn.textContent = I18N[currentLang].giftCopied;
+      setTimeout(() => { copyBtn.textContent = original; }, 1800);
+    });
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();

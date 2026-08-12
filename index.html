@@ -300,6 +300,34 @@
           <button type="submit" id="rsvpSubmit" class="btn btn--primary btn--block" data-i18n="submitButton"></button>
         </form>
         <div id="rsvpStatus" class="rsvp-status" hidden></div>
+
+        <details class="rsvp-gift">
+          <summary data-i18n="giftToggle"></summary>
+          <div class="rsvp-gift__body">
+            <p class="rsvp-gift__intro" data-i18n="giftIntro"></p>
+            <dl class="rsvp-gift__details">
+              <div class="rsvp-gift__row">
+                <dt data-i18n="giftBeneficiaryLabel"></dt>
+                <dd>Matteo Doni &amp; Anca Daniela Popoiu</dd>
+              </div>
+              <div class="rsvp-gift__row">
+                <dt data-i18n="giftIbanLabel"></dt>
+                <dd class="rsvp-gift__iban">
+                  <span id="giftIbanValue">IT42 R036 6901 6000 6678 9352 439</span>
+                  <button type="button" class="rsvp-gift__copy" id="giftCopyBtn" data-i18n="giftCopy"></button>
+                </dd>
+              </div>
+              <div class="rsvp-gift__row">
+                <dt data-i18n="giftBicLabel"></dt>
+                <dd>REVOITM2</dd>
+              </div>
+              <div class="rsvp-gift__row">
+                <dt data-i18n="giftBankLabel"></dt>
+                <dd>Revolut Bank UAB — Via Dante 7, 20123 Milano (MI)</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
       </div>
     </section>
 
