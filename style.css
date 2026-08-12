@@ -202,11 +202,28 @@ body.intro-lock { overflow: hidden; height: 100%; }
 }
 .envelope.is-opening .envelope__flap { transform: rotateX(180deg); }
 
+.envelope__letter {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 20%;
+  bottom: 5%;
+  background: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 10px 22px rgb(20 30 42 / 0.2);
+  z-index: 1;
+  transform: translateY(18%);
+  transition: transform 0.8s cubic-bezier(0.22, 0.9, 0.32, 1) 0.3s;
+}
+.envelope.is-opening .envelope__letter {
+  transform: translateY(-42%);
+}
+
 .envelope__seal {
   position: absolute;
   top: 52%;
   left: 50%;
-  width: 34%;
+  width: 46%;
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
