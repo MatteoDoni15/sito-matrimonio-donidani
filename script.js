@@ -31,7 +31,7 @@ const CONFIG = {
   ceremony: {
     it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
     ro: { venue: "Parohia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
-    time: "16:00",
+    time: "11:00",
     // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
     // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
     mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
