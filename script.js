@@ -99,7 +99,8 @@ const I18N = {
     photosEyebrow: "Condividi i tuoi scatti",
     photosTitle: "Le foto della festa",
     photosText: "Scansiona il QR code o clicca qui sotto per caricare le foto che scatterai durante la giornata: le raccoglieremo tutte in un unico album.",
-    photosCta: "Apri la cartella foto",
+    photosUploadCta: "Carica le tue foto",
+    photosViewCta: "Guarda le foto",
     photosQrAlt: "QR code per caricare le foto del matrimonio",
 
     submitButton: "Invia la conferma",
@@ -175,7 +176,8 @@ const I18N = {
     photosEyebrow: "Distribuie pozele tale",
     photosTitle: "Pozele de la petrecere",
     photosText: "Scanează codul QR sau apasă mai jos pentru a încărca pozele făcute în ziua nunții: le vom aduna pe toate într-un singur album.",
-    photosCta: "Deschide folderul cu poze",
+    photosUploadCta: "Încarcă pozele tale",
+    photosViewCta: "Vezi pozele",
     photosQrAlt: "Cod QR pentru încărcarea pozelor de la nuntă",
 
     submitButton: "Trimite confirmarea",

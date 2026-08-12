@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Le foto del matrimonio — Matteo &amp; Anca Daniela</title>
+  <meta name="description" content="Sfoglia le foto caricate dagli invitati durante il matrimonio di Matteo e Anca Daniela." />
+  <link rel="icon" type="image/jpeg" href="assets/Stemma_MD.jpeg" />
+  <link rel="stylesheet" href="assets/fonts-embed.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="gallery-page">
+
+  <header class="topbar">
+    <div class="lang-toggle" role="group" aria-label="Lingua della pagina / Limba paginii">
+      <button type="button" data-lang-btn="it" aria-pressed="true">IT</button>
+      <span class="lang-toggle__sep">/</span>
+      <button type="button" data-lang-btn="ro" aria-pressed="false">RO</button>
+    </div>
+    <a class="topbar__cta" href="index.html" id="galleryBackLink">Torna al sito</a>
+  </header>
+
+  <main>
+    <div class="gallery-header">
+      <p class="eyebrow" id="galleryEyebrow"></p>
+      <h1 id="galleryTitle"></h1>
+      <p class="gallery-subtitle" id="gallerySubtitle"></p>
+      <div class="gallery-toolbar">
+        <span class="gallery-count" id="galleryCount" hidden></span>
+        <button type="button" class="btn btn--secondary btn--small" id="galleryRefresh"></button>
+      </div>
+    </div>
+
+    <div class="gallery-main">
+      <div class="gallery-state" id="galleryState" hidden></div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </main>
+
+  <div class="gallery-lightbox" id="galleryLightbox" hidden>
+    <button type="button" class="gallery-lightbox__close" id="lightboxClose" aria-label="Chiudi">&times;</button>
+    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--prev" id="lightboxPrev" aria-label="Foto precedente">&#10094;</button>
+    <img class="gallery-lightbox__img" id="lightboxImg" src="" alt="" />
+    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--next" id="lightboxNext" aria-label="Foto successiva">&#10095;</button>
+    <p class="gallery-lightbox__count" id="lightboxCount"></p>
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+
+</html>
