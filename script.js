@@ -511,23 +511,25 @@ function initStorySlider() {
 function initEnvelopeIntro() {
   const intro = document.getElementById("envelopeIntro");
   const btn = document.getElementById("envelopeButton");
-  if (!intro || !btn) return;
+  const envelope = document.getElementById("envelope");
+  if (!intro || !btn || !envelope) return;
 
   document.body.classList.add("intro-lock");
 
   btn.addEventListener("click", () => {
-    if (btn.classList.contains("is-opening")) return;
+    if (envelope.classList.contains("open")) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    btn.classList.add("is-opening");
+    envelope.classList.remove("close");
+    envelope.classList.add("open");
     btn.disabled = true;
 
-    const flapDelay = reduceMotion ? 0 : 750;
+    const openDelay = reduceMotion ? 0 : 1550;
     setTimeout(() => {
       intro.classList.add("is-dismissed");
       document.body.classList.remove("intro-lock");
-    }, flapDelay);
+    }, openDelay);
 
-    const cleanupDelay = flapDelay + (reduceMotion ? 0 : 650);
+    const cleanupDelay = openDelay + (reduceMotion ? 0 : 650);
     setTimeout(() => { intro.remove(); }, cleanupDelay);
   });
 }

@@ -162,73 +162,71 @@ body.intro-lock { overflow: hidden; height: 100%; }
   pointer-events: none;
 }
 
-.envelope {
+.envelope-trigger {
   position: relative;
-  width: min(92vw, 480px);
-  aspect-ratio: 10 / 7;
+  display: inline-block;
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
-  perspective: 1000px;
   -webkit-tap-highlight-color: transparent;
 }
-.envelope:hover .envelope__seal { transform: translate(-50%, -50%) scale(1.05); }
+.envelope-trigger:hover .envelope__seal { transform: translate(-50%, -50%) scale(1.05); }
 
-.envelope__body {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 6px;
-}
-
-.envelope__back {
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-  background:
-    linear-gradient(135deg, transparent 49%, rgb(0 0 0 / 0.08) 50%, transparent 51%),
-    linear-gradient(45deg, transparent 49%, rgb(0 0 0 / 0.08) 50%, transparent 51%),
-    #4c6f8c;
+#envelope {
+  --env-w: min(92vw, 480px);
+  --env-h: calc(var(--env-w) * 0.7);
+  position: relative;
+  display: block;
+  width: var(--env-w);
+  height: var(--env-h);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #3f5c76;
   box-shadow: 0 24px 48px -20px rgb(20 30 42 / 0.45);
+  perspective: 1000px;
 }
 
-.envelope__flap {
+.front {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 62%;
-  background: #3f5c76;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  backface-visibility: hidden;
-  transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.3, 1);
-  border-radius: 6px 6px 0 0;
-  z-index: 2;
+  width: 0;
+  height: 0;
+  z-index: 3;
+  pointer-events: none;
 }
-.envelope.is-opening .envelope__flap { transform: rotateX(180deg); }
 
-.envelope__letter {
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 12%;
-  bottom: 6%;
-  background: #ffffff;
-  border-radius: 3px;
-  box-shadow: 0 8px 18px rgb(20 30 42 / 0.18);
-  z-index: 1;
-  transform: translateY(130%);
-  transition: transform 0.55s cubic-bezier(0.22, 0.9, 0.32, 1) 0.15s;
+.flap {
+  border-left: calc(var(--env-w) / 2) solid transparent;
+  border-right: calc(var(--env-w) / 2) solid transparent;
+  border-bottom: calc(var(--env-h) / 2 - 8px) solid transparent;
+  border-top: calc(var(--env-h) / 2 + 8px) solid #3f5c76;
+  transform-origin: top;
 }
-.envelope.is-opening .envelope__letter {
-  transform: translateY(0%);
+#envelope.close .flap {
+  transform: rotateX(0deg);
+  transition: transform 0.5s 0.55s ease, z-index 1s;
+  z-index: 5;
+}
+#envelope.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 0.5s ease, z-index 0.7s;
+  z-index: 1;
+}
+
+.pocket {
+  border-left: calc(var(--env-w) / 2) solid #4c6f8c;
+  border-right: calc(var(--env-w) / 2) solid #4c6f8c;
+  border-bottom: calc(var(--env-h) / 2) solid #45657e;
+  border-top: calc(var(--env-h) / 2) solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .envelope__seal {
   position: absolute;
-  top: 52%;
+  top: 51%;
   left: 50%;
   width: 34%;
   aspect-ratio: 1;
@@ -236,12 +234,124 @@ body.intro-lock { overflow: hidden; height: 100%; }
   object-fit: cover;
   transform: translate(-50%, -50%);
   box-shadow: 0 6px 14px rgb(20 30 42 / 0.4);
-  z-index: 3;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 6;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.envelope.is-opening .envelope__seal {
+#envelope.open .envelope__seal {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.5) rotate(-25deg);
+}
+
+.letter {
+  position: relative;
+  display: block;
+  background-color: #ffffff;
+  width: 88%;
+  margin: 0 auto;
+  height: 88%;
+  top: 6%;
+  border-radius: 4px;
+  box-shadow: 0 10px 26px rgb(20 30 42 / 0.2);
+  z-index: 1;
+  transform: translateY(0);
+}
+#envelope.close .letter {
+  transform: translateY(0);
+  z-index: 1;
+  transition: transform 0.45s ease, z-index 1s;
+}
+#envelope.open .letter {
+  transform: translateY(calc(var(--env-h) / -3));
+  z-index: 2;
+  transition: transform 0.45s 0.55s ease, z-index 0.6s;
+}
+.letter::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background-image: linear-gradient(180deg, rgb(215 227 239 / 0) 25%, rgb(215 227 239 / 0.7) 55%, rgb(215 227 239 / 1) 100%);
+}
+
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 14%;
+  background-color: #eeeff0;
+}
+.words.line1 { top: 15%; width: 20%; height: 7%; }
+.words.line2 { top: 32%; }
+.words.line3 { top: 52%; }
+.words.line4 { top: 72%; }
+
+.hearts {
+  position: absolute;
+  display: block;
+  top: calc(var(--env-h) / 2);
+  left: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.heart {
+  --heart-w: max(20px, calc(var(--env-w) * 0.08));
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 10%;
+}
+.heart::before,
+.heart::after {
+  position: absolute;
+  content: "";
+  left: var(--heart-w);
+  top: 0;
+  width: var(--heart-w);
+  height: calc(var(--heart-w) * 1.6);
+  background: #cf9f3f;
+  border-radius: var(--heart-w) var(--heart-w) 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+.heart::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+#envelope.close .heart { opacity: 0; animation: none; }
+.heart.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  opacity: 1;
+  animation: envHeartRise 1s linear 1, envHeartSway 1s ease-in-out 1 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+.heart.a2 {
+  left: 55%;
+  transform: scale(1);
+  opacity: 1;
+  animation: envHeartRise 1.15s linear 1, envHeartSway 1.15s ease-in-out 1 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.55s;
+}
+.heart.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  opacity: 1;
+  animation: envHeartRise 1.3s linear 1, envHeartSway 1.3s ease-in-out 1 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes envHeartRise {
+  0% { top: 0; }
+  100% { top: -220px; }
+}
+@keyframes envHeartSway {
+  0% { margin-left: 0; }
+  100% { margin-left: 36px; }
 }
 
 .envelope__hint {
@@ -256,7 +366,7 @@ body.intro-lock { overflow: hidden; height: 100%; }
   color: #4c6f8c;
   transition: opacity 0.3s ease;
 }
-.envelope.is-opening .envelope__hint { opacity: 0; }
+#envelope.open ~ .envelope__hint { opacity: 0; }
 
 /* =========================================================================
    TOPBAR

@@ -14,12 +14,22 @@
 <body>
 
   <div class="envelope-intro" id="envelopeIntro">
-    <button type="button" class="envelope" id="envelopeButton" aria-label="Apri l'invito e scopri il sito">
-      <span class="envelope__body">
-        <span class="envelope__back"></span>
-        <span class="envelope__letter"></span>
-        <span class="envelope__flap"></span>
+    <button type="button" class="envelope-trigger" id="envelopeButton" aria-label="Apri l'invito e scopri il sito">
+      <span id="envelope" class="close">
+        <span class="front flap"></span>
+        <span class="front pocket"></span>
         <img class="envelope__seal" src="assets/Stemma_MD.jpeg" alt="" aria-hidden="true" />
+        <span class="letter">
+          <span class="words line1"></span>
+          <span class="words line2"></span>
+          <span class="words line3"></span>
+          <span class="words line4"></span>
+        </span>
+        <span class="hearts">
+          <span class="heart a1"></span>
+          <span class="heart a2"></span>
+          <span class="heart a3"></span>
+        </span>
       </span>
       <span class="envelope__hint" data-i18n="envelopeHint"></span>
     </button>
