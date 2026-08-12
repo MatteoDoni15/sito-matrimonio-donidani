@@ -70,9 +70,7 @@ const I18N = {
     days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
     countdownDone: "Oggi è il grande giorno! Non vediamo l'ora di festeggiare con voi.",
 
-    sliderPrev: "Foto precedente",
-    sliderNext: "Foto successiva",
-    sliderGoTo: "Vai alla foto",
+    storyFanHint: "Scorri per vedere tutte le foto →",
 
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confermate la vostra presenza",
@@ -115,7 +113,7 @@ const I18N = {
     contactEyebrow: "Domande?",
     contactText: "Scrivici quando vuoi, a:",
     footerThanks: "Con affetto,",
-    footerHashtag: "#MatteoEDaniela",
+    footerHashtag: "#MatrimonioDoniDani",
 
     dateLocale: "it-IT",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
@@ -147,9 +145,7 @@ const I18N = {
     days: "Zile", hours: "Ore", minutes: "Minute", seconds: "Secunde",
     countdownDone: "Astăzi este marea zi! Abia așteptăm să sărbătorim alături de voi.",
 
-    sliderPrev: "Fotografia anterioară",
-    sliderNext: "Fotografia următoare",
-    sliderGoTo: "Mergi la fotografia",
+    storyFanHint: "Derulează pentru a vedea toate pozele →",
 
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confirmați-vă prezența",
@@ -192,7 +188,7 @@ const I18N = {
     contactEyebrow: "Întrebări?",
     contactText: "Scrie-ne oricând, la:",
     footerThanks: "Cu drag,",
-    footerHashtag: "#MatteoSi",
+    footerHashtag: "#CăsătorieDoniDani",
 
     dateLocale: "ro-RO",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
@@ -262,7 +258,6 @@ function applyLanguage(lang) {
   updateAttendingUI();
   updatePlusOneUI();
   updateChildrenUI();
-  updateSliderAria();
 }
 
 function capitalize(str) {
@@ -423,86 +418,88 @@ function initForm() {
 }
 
 /* =========================================================================
-   STORY PHOTO SLIDER
+   STORY PHOTO FAN
+   All photos sit visible in a loose fan; on desktop they drift with the
+   cursor (parallax) and tilt on hover. On touch/narrow screens the CSS
+   turns the same markup into a swipeable strip, so no JS is needed there.
    ========================================================================= */
-function updateSliderAria() {
-  const root = document.getElementById("storySlider");
-  const dotsWrap = document.getElementById("storySliderDots");
-  if (!root) return;
-  const t = I18N[currentLang];
-  const prevBtn = root.querySelector(".story-slider__nav--prev");
-  const nextBtn = root.querySelector(".story-slider__nav--next");
-  if (prevBtn) prevBtn.setAttribute("aria-label", t.sliderPrev);
-  if (nextBtn) nextBtn.setAttribute("aria-label", t.sliderNext);
-  if (dotsWrap) {
-    dotsWrap.querySelectorAll(".story-slider__dot").forEach((dot, i) => {
-      dot.setAttribute("aria-label", t.sliderGoTo + " " + (i + 1));
-    });
-  }
-}
+function initStoryFan() {
+  const root = document.getElementById("storyFan");
+  const track = document.getElementById("storyFanTrack");
+  if (!root || !track) return;
 
-function initStorySlider() {
-  const root = document.getElementById("storySlider");
-  const dotsWrap = document.getElementById("storySliderDots");
-  if (!root) return;
-  const slides = Array.from(root.querySelectorAll(".story-slider__img"));
-  const prevBtn = root.querySelector(".story-slider__nav--prev");
-  const nextBtn = root.querySelector(".story-slider__nav--next");
-  if (!slides.length || !dotsWrap) return;
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        root.classList.add("is-visible");
+        io.disconnect();
+      });
+    }, { threshold: 0.2 });
+    io.observe(root);
+  } else {
+    root.classList.add("is-visible");
+  }
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let index = 0;
-  let timer = null;
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (reduceMotion || !canHover) return;
 
-  const dots = slides.map((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "story-slider__dot";
-    dot.setAttribute("role", "tab");
-    dot.addEventListener("click", () => goTo(i, true));
-    dotsWrap.appendChild(dot);
-    return dot;
-  });
+  const parallaxLayers = Array.from(track.querySelectorAll(".story-fan__parallax"));
+  let targetX = 0, targetY = 0, curX = 0, curY = 0, raf = null;
 
-  function render() {
-    slides.forEach((s, i) => s.classList.toggle("is-active", i === index));
-    dots.forEach((d, i) => {
-      d.classList.toggle("is-active", i === index);
-      d.setAttribute("aria-selected", i === index ? "true" : "false");
+  function tick() {
+    curX += (targetX - curX) * 0.08;
+    curY += (targetY - curY) * 0.08;
+    parallaxLayers.forEach((layer) => {
+      const depth = parseFloat(layer.dataset.depth) || 8;
+      layer.style.setProperty("--px", (curX * depth).toFixed(2) + "px");
+      layer.style.setProperty("--py", (curY * depth * 0.6).toFixed(2) + "px");
     });
+    if (Math.abs(targetX - curX) > 0.002 || Math.abs(targetY - curY) > 0.002) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = null;
+    }
   }
 
-  function goTo(i, userTriggered) {
-    index = (i + slides.length) % slides.length;
-    render();
-    if (userTriggered) restartAutoplay();
+  function ensureTicking() {
+    if (raf === null) raf = requestAnimationFrame(tick);
   }
 
-  function restartAutoplay() {
-    clearInterval(timer);
-    if (reduceMotion) return;
-    timer = setInterval(() => goTo(index + 1), 4500);
-  }
-
-  prevBtn.addEventListener("click", () => goTo(index - 1, true));
-  nextBtn.addEventListener("click", () => goTo(index + 1, true));
-  root.addEventListener("mouseenter", () => clearInterval(timer));
-  root.addEventListener("mouseleave", restartAutoplay);
-  root.addEventListener("focusin", () => clearInterval(timer));
-  root.addEventListener("focusout", restartAutoplay);
-
-  let touchStartX = null;
-  root.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  root.addEventListener("touchend", (e) => {
-    if (touchStartX === null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) goTo(dx < 0 ? index + 1 : index - 1, true);
-    touchStartX = null;
+  track.addEventListener("mousemove", (e) => {
+    const r = track.getBoundingClientRect();
+    targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    ensureTicking();
+  });
+  track.addEventListener("mouseleave", () => {
+    targetX = 0;
+    targetY = 0;
+    ensureTicking();
   });
 
-  render();
-  updateSliderAria();
-  restartAutoplay();
+  // Zoom + tilt on the innermost layer, kept separate from the parallax
+  // layer above so the eased zoom transition never fights the per-frame
+  // parallax lerp.
+  track.querySelectorAll(".story-fan__inner").forEach((card) => {
+    const outer = card.closest(".story-fan__card");
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.setProperty("--rx", (-py * 14).toFixed(2) + "deg");
+      card.style.setProperty("--ry", (px * 14).toFixed(2) + "deg");
+      card.style.setProperty("--sc", "1.22");
+      outer.classList.add("is-hovered");
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+      card.style.setProperty("--sc", "1");
+      outer.classList.remove("is-hovered");
+    });
+  });
 }
 
 /* =========================================================================
@@ -623,7 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(tickCountdown, 1000);
   initForm();
   initLeaves();
-  initStorySlider();
+  initStoryFan();
   initEnvelopeIntro();
 
   document.getElementById("year").textContent = new Date(CONFIG.weddingDateISO).getFullYear();

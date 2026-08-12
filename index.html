@@ -41,6 +41,10 @@
         <path d="M16 3c8.5 5.5 12.5 13 8.8 20.6C22 29 14.6 30.5 11 26.6 5.7 21 6.2 12 16 3z" />
         <path d="M16 7v19" stroke-width="1.3" stroke-linecap="round" fill="none" />
       </symbol>
+      <symbol id="heart-empty-glyph" viewBox="0 0 48 48">
+        <path
+          d="m43,17.0766c0-5.6539-4.5835-10.2373-10.2374-10.2373-3.7223,0-6.9708,1.9932-8.7626,4.964-1.7919-2.9708-5.0403-4.964-8.7626-4.964-5.6539,0-10.2373,4.5834-10.2373,10.2373,0,1.2925.2496,2.524.6866,3.6627,3.3851,9.7368,18.3134,20.4215,18.3134,20.4215,0,0,14.9282-10.6847,18.3134-20.4215.437-1.1386.6867-2.3702.6867-3.6627Z" />
+      </symbol>
     </defs>
   </svg>
 
@@ -73,7 +77,7 @@
     </section>
 
     <div class="divider" aria-hidden="true"><svg class="divider__leaf">
-        <use href="#leaf-glyph" />
+        <use href="#heart-empty-glyph" />
       </svg></div>
 
     <section class="story" id="story">
@@ -82,43 +86,105 @@
         <h2 data-i18n="storyTitle"></h2>
         <p class="story__text" data-i18n="storyText"></p>
 
-        <div class="story-frame" id="storyFrame">
-          <div class="story-slider" id="storySlider">
-            <img class="story-slider__img is-active" src="assets/slider-web/slide-01.webp"
-              alt="Matteo e Daniela — foto 1" loading="eager" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-02.webp" alt="Matteo e Daniela — foto 2"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-03.webp" alt="Matteo e Daniela — foto 3"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-04.webp" alt="Matteo e Daniela — foto 4"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-05.webp" alt="Matteo e Daniela — foto 5"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-06.webp" alt="Matteo e Daniela — foto 6"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-07.webp" alt="Matteo e Daniela — foto 7"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-08.webp" alt="Matteo e Daniela — foto 8"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-09.webp" alt="Matteo e Daniela — foto 9"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-10.webp" alt="Matteo e Daniela — foto 10"
-              loading="lazy" decoding="async" />
-            <img class="story-slider__img" src="assets/slider-web/slide-11.webp" alt="Matteo e Daniela — foto 11"
-              loading="lazy" decoding="async" />
-            <button type="button" class="story-slider__nav story-slider__nav--prev"
-              aria-label="Foto precedente">&#10094;</button>
-            <button type="button" class="story-slider__nav story-slider__nav--next"
-              aria-label="Foto successiva">&#10095;</button>
-          </div>
-          <img class="story-frame__border" src="assets/Frame_slider/Frame_slider.svg" alt="" aria-hidden="true" />
-        </div>
-        <div class="story-slider__dots" id="storySliderDots" role="tablist" aria-label="Seleziona foto"></div>
       </div>
+
+      <div class="story-fan" id="storyFan">
+        <div class="story-fan__track" id="storyFanTrack">
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="8">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-01.webp" alt="Matteo e Daniela — foto 1" loading="eager"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="12">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-02.webp" alt="Matteo e Daniela — foto 2" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="6">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-03.webp" alt="Matteo e Daniela — foto 3" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="13">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-04.webp" alt="Matteo e Daniela — foto 4" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="8">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-05.webp" alt="Matteo e Daniela — foto 5" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="14">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-06.webp" alt="Matteo e Daniela — foto 6" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="8">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-07.webp" alt="Matteo e Daniela — foto 7" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="12">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-08.webp" alt="Matteo e Daniela — foto 8" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="6">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-09.webp" alt="Matteo e Daniela — foto 9" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="10">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-10.webp" alt="Matteo e Daniela — foto 10" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+          <div class="story-fan__card">
+            <div class="story-fan__parallax" data-depth="5">
+              <div class="story-fan__inner">
+                <img src="assets/slider-web/slide-11.webp" alt="Matteo e Daniela — foto 11" loading="lazy"
+                  decoding="async" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="story-fan__hint" data-i18n="storyFanHint"></p>
     </section>
 
     <div class="divider" aria-hidden="true"><svg class="divider__leaf">
-        <use href="#leaf-glyph" />
+        <use href="#heart-empty-glyph" />
       </svg></div>
 
     <section class="details" id="details">
@@ -160,7 +226,7 @@
     </section>
 
     <div class="divider" aria-hidden="true"><svg class="divider__leaf">
-        <use href="#leaf-glyph" />
+        <use href="#heart-empty-glyph" />
       </svg></div>
 
     <section class="rsvp" id="rsvp">
@@ -253,7 +319,7 @@
     </section>
 
     <div class="divider" aria-hidden="true"><svg class="divider__leaf">
-        <use href="#leaf-glyph" />
+        <use href="#heart-empty-glyph" />
       </svg></div>
 
     <section class="contact" id="contact">
@@ -268,7 +334,7 @@
 
   <footer class="site-footer">
     <svg class="site-footer__leaf" aria-hidden="true">
-      <use href="#leaf-glyph" />
+      <use href="#heart-empty-glyph" />
     </svg>
     <p data-i18n="footerThanks"></p>
     <p class="site-footer__names">Matteo &amp; Daniela</p>
