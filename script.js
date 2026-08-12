@@ -46,6 +46,7 @@ const CONFIG = {
 const I18N = {
   it: {
     pageTitle: "Matteo & Daniela — Il nostro matrimonio",
+    envelopeHint: "Tocca per aprire l'invito",
     navRsvp: "RSVP",
     heroEyebrow: "Ci sposiamo",
     heroSubtitle: "Con gioia nel cuore, vi invitiamo a festeggiare con noi l'inizio di una nuova vita insieme.",
@@ -121,6 +122,7 @@ const I18N = {
   },
   ro: {
     pageTitle: "Matteo & Daniela — Nunta noastră",
+    envelopeHint: "Atinge pentru a deschide invitația",
     navRsvp: "RSVP",
     heroEyebrow: "Ne căsătorim",
     heroSubtitle: "Cu bucurie în suflet, vă invităm să sărbătoriți alături de noi începutul unei noi vieți împreună.",
@@ -502,6 +504,33 @@ function initStorySlider() {
 }
 
 /* =========================================================================
+   ENVELOPE INTRO
+   ========================================================================= */
+function initEnvelopeIntro() {
+  const intro = document.getElementById("envelopeIntro");
+  const btn = document.getElementById("envelopeButton");
+  if (!intro || !btn) return;
+
+  document.body.classList.add("intro-lock");
+
+  btn.addEventListener("click", () => {
+    if (btn.classList.contains("is-opening")) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    btn.classList.add("is-opening");
+    btn.disabled = true;
+
+    const flapDelay = reduceMotion ? 0 : 750;
+    setTimeout(() => {
+      intro.classList.add("is-dismissed");
+      document.body.classList.remove("intro-lock");
+    }, flapDelay);
+
+    const cleanupDelay = flapDelay + (reduceMotion ? 0 : 650);
+    setTimeout(() => { intro.remove(); }, cleanupDelay);
+  });
+}
+
+/* =========================================================================
    FALLING LEAVES (decorative canvas, respects prefers-reduced-motion)
    ========================================================================= */
 function initLeaves() {
@@ -512,7 +541,7 @@ function initLeaves() {
 
   const ctx = canvas.getContext("2d");
   let w, h, dpr;
-  const colors = ["#3e6690", "#c29a5d", "#2e4a63", "#7faedd"];
+  const colors = ["#9c6a0f", "#cf9f3f", "#2e4a63", "#5c8ab3"];
   const leaves = [];
   const COUNT = 16;
 
@@ -591,6 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForm();
   initLeaves();
   initStorySlider();
+  initEnvelopeIntro();
 
   document.getElementById("year").textContent = new Date(CONFIG.weddingDateISO).getFullYear();
 });
