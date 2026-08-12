@@ -954,17 +954,45 @@ body.intro-lock { overflow: hidden; height: 100%; }
 .rsvp-gift summary {
   cursor: pointer;
   list-style: none;
-  font-size: 0.85rem;
-  color: var(--ink-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
   text-decoration: underline;
   text-decoration-color: var(--gold-line);
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
   transition: color 0.15s ease;
 }
 .rsvp-gift summary::-webkit-details-marker { display: none; }
 .rsvp-gift summary::marker { content: ""; }
 .rsvp-gift summary:hover,
 .rsvp-gift[open] summary { color: var(--accent); }
+
+.rsvp-gift__toggle-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-line);
+  transition: transform 0.35s cubic-bezier(0.22, 0.8, 0.32, 1), border-color 0.15s ease;
+}
+.rsvp-gift__toggle-icon::before,
+.rsvp-gift__toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--accent);
+  transition: background 0.15s ease;
+}
+.rsvp-gift__toggle-icon::before { width: 0.7rem; height: 2px; transform: translate(-50%, -50%); }
+.rsvp-gift__toggle-icon::after { width: 2px; height: 0.7rem; transform: translate(-50%, -50%); }
+.rsvp-gift summary:hover .rsvp-gift__toggle-icon,
+.rsvp-gift[open] summary .rsvp-gift__toggle-icon { border-color: var(--accent); }
+.rsvp-gift[open] summary .rsvp-gift__toggle-icon { transform: rotate(45deg); }
 
 .rsvp-gift__body { margin-top: 1.1rem; text-align: left; }
 .rsvp-gift__intro { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 1.1rem; }
