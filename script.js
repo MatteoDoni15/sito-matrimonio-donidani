@@ -15,7 +15,7 @@ const CONFIG = {
   // un'email di conferma: devi cliccare il link dentro per attivare l'invio.
   // IMPORTANT: prima dată când cineva trimite formularul, FormSubmit îți va trimite
   // un email de confirmare: trebuie să apeși linkul din el ca să activezi trimiterea.
-  contactEmail: "teoxdoni@gmail.com",
+  contactEmail: "popoiudaniela.dp@gmail.com",
 
   // URL del Google Apps Script "Web app" per salvare ogni RSVP anche in un Google Sheet.
   // Lascia vuoto ("") per disattivare: il sito funziona lo stesso, solo via email.
