@@ -23,6 +23,10 @@ const CONFIG = {
   // Lasă gol ("") ca să dezactivezi: site-ul funcționează la fel, doar prin email.
   googleSheetWebAppUrl: "https://script.google.com/macros/s/AKfycbxVejKK7wrmSr6dNof8jTR5hAsrS4EQdXi-_WzdkWXQ-u9jo1y2ItgAnJo-BfA1Md5T/exec",
 
+  // Cartella Google Drive dove gli invitati caricano le foto del matrimonio.
+  // Folderul Google Drive unde invitații încarcă pozele de la nuntă.
+  photosDriveUrl: "https://drive.google.com/drive/folders/1cR65lmjh40W0C15fIjdQH6EtWqdyn_o_?usp=drive_link",
+
   // Luoghi (placeholder da modificare) / Locații (valori temporare de modificat)
   ceremony: {
     it: { venue: "Chiesa di [Nome Parrocchia]", address: "[Indirizzo], [Città]" },
@@ -41,7 +45,7 @@ const CONFIG = {
    ========================================================================= */
 const I18N = {
   it: {
-    pageTitle: "Matteo & Anca Daniela — Il nostro matrimonio",
+    pageTitle: "Matteo & Daniela — Il nostro matrimonio",
     navRsvp: "RSVP",
     heroEyebrow: "Ci sposiamo",
     heroSubtitle: "Con gioia nel cuore, vi invitiamo a festeggiare con noi l'inizio di una nuova vita insieme.",
@@ -90,6 +94,13 @@ const I18N = {
     placeholderDietary: "Facci sapere se hai esigenze particolari",
     labelMessage: "Un messaggio per gli sposi",
     placeholderMessage: "Scrivi qui i tuoi auguri...",
+
+    photosEyebrow: "Condividi i tuoi scatti",
+    photosTitle: "Le foto della festa",
+    photosText: "Scansiona il QR code o clicca qui sotto per caricare le foto che scatterai durante la giornata: le raccoglieremo tutte in un unico album.",
+    photosCta: "Apri la cartella foto",
+    photosQrAlt: "QR code per caricare le foto del matrimonio",
+
     submitButton: "Invia la conferma",
     submitting: "Invio in corso...",
     successTitle: "Grazie di cuore!",
@@ -109,7 +120,7 @@ const I18N = {
     deadlineFormat: { day: "numeric", month: "long", year: "numeric" }
   },
   ro: {
-    pageTitle: "Matteo & Anca Daniela — Nunta noastră",
+    pageTitle: "Matteo & Daniela — Nunta noastră",
     navRsvp: "RSVP",
     heroEyebrow: "Ne căsătorim",
     heroSubtitle: "Cu bucurie în suflet, vă invităm să sărbătoriți alături de noi începutul unei noi vieți împreună.",
@@ -158,6 +169,13 @@ const I18N = {
     placeholderDietary: "Spune-ne dacă ai nevoi speciale",
     labelMessage: "Un mesaj pentru miri",
     placeholderMessage: "Scrie aici gândurile tale bune...",
+
+    photosEyebrow: "Distribuie pozele tale",
+    photosTitle: "Pozele de la petrecere",
+    photosText: "Scanează codul QR sau apasă mai jos pentru a încărca pozele făcute în ziua nunții: le vom aduna pe toate într-un singur album.",
+    photosCta: "Deschide folderul cu poze",
+    photosQrAlt: "Cod QR pentru încărcarea pozelor de la nuntă",
+
     submitButton: "Trimite confirmarea",
     submitting: "Se trimite...",
     successTitle: "Vă mulțumim din suflet!",
@@ -211,6 +229,10 @@ function applyLanguage(lang) {
     const key = el.getAttribute("data-i18n-ph");
     if (t[key] !== undefined) el.setAttribute("placeholder", t[key]);
   });
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-alt");
+    if (t[key] !== undefined) el.setAttribute("alt", t[key]);
+  });
   document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
     btn.classList.toggle("is-active", btn.getAttribute("data-lang-btn") === lang);
     btn.setAttribute("aria-pressed", btn.getAttribute("data-lang-btn") === lang ? "true" : "false");
@@ -230,6 +252,8 @@ function applyLanguage(lang) {
 
   document.getElementById("contactEmailLink").textContent = CONFIG.contactEmail;
   document.getElementById("contactEmailLink").setAttribute("href", "mailto:" + CONFIG.contactEmail);
+
+  document.getElementById("photosLink").setAttribute("href", CONFIG.photosDriveUrl);
 
   updateAttendingUI();
   updatePlusOneUI();
