@@ -29,9 +29,12 @@ const CONFIG = {
 
   // Luoghi (placeholder da modificare) / Locații (valori temporare de modificat)
   ceremony: {
-    it: { venue: "Chiesa di [Nome Parrocchia]", address: "[Indirizzo], [Città]" },
-    ro: { venue: "Biserica [Numele parohiei]", address: "[Adresa], [Orașul]" },
-    time: "16:00"
+    it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
+    ro: { venue: "Parohia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
+    time: "16:00",
+    // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
+    // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
+    mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
   },
   reception: {
     it: { venue: "[Nome della location]", address: "[Indirizzo], [Città]" },
@@ -64,6 +67,7 @@ const I18N = {
     dressCodeLabel: "Dress code",
     dressCodeValue: "Elegante, nei toni caldi dell'autunno",
     detailsNote: "Vi terremo aggiornati con la mappa e tutti i dettagli via email.",
+    directionsLabel: "Come arrivare →",
 
     countdownEyebrow: "M sempre meno",
     countdownTitle: "Il conto alla rovescia",
@@ -139,6 +143,7 @@ const I18N = {
     dressCodeLabel: "Ținută recomandată",
     dressCodeValue: "Eleganță, în nuanțe calde de toamnă",
     detailsNote: "Vă vom trimite harta și toate detaliile pe email.",
+    directionsLabel: "Vezi traseul →",
 
     countdownEyebrow: "Numărătoarea inversă",
     countdownTitle: "Mai sunt doar...",
@@ -246,6 +251,11 @@ function applyLanguage(lang) {
   document.getElementById("ceremonyVenue").textContent = cer.venue;
   document.getElementById("ceremonyAddress").textContent = cer.address;
   document.getElementById("ceremonyTime").textContent = CONFIG.ceremony.time;
+  const ceremonyMapLink = document.getElementById("ceremonyMapLink");
+  if (ceremonyMapLink && CONFIG.ceremony.mapUrl) {
+    ceremonyMapLink.href = CONFIG.ceremony.mapUrl;
+    ceremonyMapLink.hidden = false;
+  }
   document.getElementById("receptionVenue").textContent = rec.venue;
   document.getElementById("receptionAddress").textContent = rec.address;
   document.getElementById("receptionTime").textContent = CONFIG.reception.time;

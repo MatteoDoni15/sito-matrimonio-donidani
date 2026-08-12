@@ -768,6 +768,21 @@ body.intro-lock { overflow: hidden; height: 100%; }
 }
 .detail-card__venue { font-weight: 700; margin-bottom: 0.2rem; }
 .detail-card__address { color: var(--ink-soft); font-size: 0.95rem; }
+.detail-card__map {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.9rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--pill-radius);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.detail-card__map:hover { background: var(--accent); color: var(--accent-ink); transform: translateY(-1px); }
+.detail-card__map[hidden] { display: none; }
 
 .details__dresscode {
   margin-top: 2.2rem;
