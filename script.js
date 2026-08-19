@@ -69,6 +69,11 @@ const I18N = {
     detailsNote: "Vi terremo aggiornati con la mappa e tutti i dettagli via email.",
     directionsLabel: "Come arrivare →",
 
+    venueEyebrow: "La location",
+    venueTitle: "Vi aspettiamo qui",
+    venueText: "Dal tramonto alle stelle: sfiora l'interruttore per vedere come si trasforma la sera.",
+    venueToggleLabel: "Passa dal giorno alla notte",
+
     countdownEyebrow: "M sempre meno",
     countdownTitle: "Il conto alla rovescia",
     days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
@@ -153,6 +158,11 @@ const I18N = {
     dressCodeValue: "Eleganță, în nuanțe calde de toamnă",
     detailsNote: "Vă vom trimite harta și toate detaliile pe email.",
     directionsLabel: "Vezi traseul →",
+
+    venueEyebrow: "Locația",
+    venueTitle: "Vă așteptăm aici",
+    venueText: "De la apus la stele: atinge comutatorul ca să vezi cum se transformă seara.",
+    venueToggleLabel: "Treci de la zi la noapte",
 
     countdownEyebrow: "Numărătoarea inversă",
     countdownTitle: "Mai sunt doar...",
@@ -255,6 +265,10 @@ function applyLanguage(lang) {
   document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
     const key = el.getAttribute("data-i18n-alt");
     if (t[key] !== undefined) el.setAttribute("alt", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key] !== undefined) el.setAttribute("aria-label", t[key]);
   });
   document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
     btn.classList.toggle("is-active", btn.getAttribute("data-lang-btn") === lang);
@@ -685,6 +699,20 @@ function initLeaves() {
 }
 
 /* =========================================================================
+   VENUE SCENE (toggle giorno/notte)
+   ========================================================================= */
+function initVenueScene() {
+  const frame = document.getElementById("venueFrame");
+  const toggle = document.getElementById("venueToggle");
+  if (!frame || !toggle) return;
+
+  toggle.addEventListener("click", () => {
+    const isNight = frame.classList.toggle("is-night");
+    toggle.setAttribute("aria-pressed", String(isNight));
+  });
+}
+
+/* =========================================================================
    INIT
    ========================================================================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -698,6 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLeaves();
   initStoryFan();
   initEnvelopeIntro();
+  initVenueScene();
 
   document.getElementById("year").textContent = new Date(CONFIG.weddingDateISO).getFullYear();
 });

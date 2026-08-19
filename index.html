@@ -222,6 +222,36 @@
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"><svg class="divider__leaf">
+        <use href="#heart-empty-glyph" />
+      </svg></div>
+
+    <section class="venue-scene" id="venueScene">
+      <div class="section-inner">
+        <p class="eyebrow" data-i18n="venueEyebrow"></p>
+        <h2 data-i18n="venueTitle"></h2>
+        <p class="venue-scene__text" data-i18n="venueText"></p>
+      </div>
+      <div class="venue-scene__frame" id="venueFrame">
+        <div class="venue-scene__image">
+          <img class="venue-scene__photo venue-scene__photo--day" src="assets/location-giorno.webp"
+            alt="La location del ricevimento, di giorno" loading="lazy" decoding="async" />
+          <img class="venue-scene__photo venue-scene__photo--night" src="assets/location-notte.webp"
+            alt="La location del ricevimento, di notte" loading="lazy" decoding="async" />
+        </div>
+        <button type="button" class="venue-scene__toggle" id="venueToggle" aria-pressed="false"
+          data-i18n-aria-label="venueToggleLabel">
+          <span class="venue-scene__toggle-icon venue-scene__toggle-icon--sun" aria-hidden="true">☀</span>
+          <span class="venue-scene__toggle-track"><span class="venue-scene__toggle-thumb"></span></span>
+          <span class="venue-scene__toggle-icon venue-scene__toggle-icon--moon" aria-hidden="true">☾</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"><svg class="divider__leaf">
+        <use href="#heart-empty-glyph" />
+      </svg></div>
+
     <section class="countdown" id="countdown">
       <div class="section-inner">
         <p class="eyebrow eyebrow--light" data-i18n="countdownEyebrow"></p>
