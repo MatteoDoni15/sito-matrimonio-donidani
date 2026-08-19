@@ -74,7 +74,7 @@ const I18N = {
     venueText: "Dal tramonto alle stelle: sfiora l'interruttore per vedere come si trasforma la sera.",
     venueToggleLabel: "Passa dal giorno alla notte",
 
-    countdownEyebrow: "M sempre meno",
+    countdownEyebrow: "Manca sempre meno",
     countdownTitle: "Il conto alla rovescia",
     days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
     countdownDone: "Oggi è il grande giorno! Non vediamo l'ora di festeggiare con voi.",
