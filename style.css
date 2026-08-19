@@ -303,6 +303,92 @@ body.intro-lock {
   transform: translate(-50%, -50%) scale(0.5) rotate(-25deg);
 }
 
+/* Ribbon wraps horizontally around the envelope, bow centred on top;
+   untied via GSAP (band slides apart, bow melts away) before the flap opens. */
+.envelope__ribbon {
+  --rib-w: calc(var(--env-w) * 0.09);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+  z-index: 8;
+  pointer-events: none;
+}
+
+.ribbon__band {
+  position: absolute;
+  top: calc(var(--rib-w) * -0.5);
+  width: 50%;
+  height: var(--rib-w);
+  background: linear-gradient(180deg, #e6bd5c, #cf9f3f 50%, #a9781f);
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.25), inset 0 -2px 0 rgb(0 0 0 / 0.15);
+}
+
+.ribbon__band--left {
+  left: 0;
+  transform-origin: right center;
+}
+
+.ribbon__band--right {
+  right: 0;
+  transform-origin: left center;
+}
+
+.ribbon__knot {
+  position: absolute;
+  top: calc(var(--rib-w) * -0.68);
+  left: 50%;
+  width: calc(var(--rib-w) * 1.15);
+  height: calc(var(--rib-w) * 1.35);
+  background: linear-gradient(160deg, #e6bd5c, #9c6a0f);
+  border-radius: 6px;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 6px rgb(20 30 42 / 0.35);
+  z-index: 2;
+}
+
+.ribbon__loop {
+  position: absolute;
+  top: calc(var(--rib-w) * -1.05);
+  left: 50%;
+  width: calc(var(--rib-w) * 2.1);
+  height: calc(var(--rib-w) * 1.5);
+  background: linear-gradient(90deg, #e0b354, #cf9f3f 55%, #a9781f);
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.15);
+  z-index: 1;
+}
+
+.ribbon__loop--left {
+  border-radius: 55% 15% 55% 45% / 60% 40% 60% 40%;
+  transform: translate(calc(-100% - var(--rib-w) * 0.04), 0) rotate(-8deg);
+}
+
+.ribbon__loop--right {
+  border-radius: 15% 55% 45% 55% / 40% 60% 40% 60%;
+  transform: translate(calc(var(--rib-w) * 0.04), 0) rotate(8deg);
+}
+
+.ribbon__tail {
+  position: absolute;
+  top: calc(var(--rib-w) * 0.1);
+  left: 50%;
+  width: calc(var(--rib-w) * 0.68);
+  height: calc(var(--rib-w) * 1.7);
+  background: linear-gradient(180deg, #cf9f3f, #a9781f);
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+  transform-origin: top center;
+}
+
+.ribbon__tail--left {
+  transform: translate(calc(-100% - var(--rib-w) * 0.22), 0) rotate(-6deg);
+}
+
+.ribbon__tail--right {
+  transform: translate(calc(var(--rib-w) * 0.22), 0) rotate(6deg);
+}
+
 .letter {
   position: relative;
   display: block;
@@ -341,26 +427,33 @@ body.intro-lock {
   position: absolute;
   left: 10%;
   width: 80%;
-  height: 14%;
-  background-color: #eeeff0;
+  height: 5%;
+  border-radius: 3px;
+  background-color: #e4e7ea;
 }
 
 .words.line1 {
-  top: 15%;
-  width: 20%;
-  height: 7%;
+  top: 16%;
+  left: 22%;
+  width: 56%;
+  height: 8%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold, #cf9f3f), #e0b354);
 }
 
 .words.line2 {
-  top: 32%;
+  top: 34%;
+  width: 80%;
 }
 
 .words.line3 {
-  top: 52%;
+  top: 46%;
+  width: 68%;
 }
 
 .words.line4 {
-  top: 72%;
+  top: 58%;
+  width: 46%;
 }
 
 .hearts {
@@ -468,6 +561,25 @@ body.intro-lock {
 
 #envelope.open~.envelope__hint {
   opacity: 0;
+}
+
+/* On phones the envelope fills the whole screen instead of floating as a
+   small card, so the intro reads as a full-page invitation. */
+@media (max-width: 640px) {
+  #envelope {
+    --env-w: 100vw;
+    --env-h: 100dvh;
+    border-radius: 0;
+  }
+
+  .pocket {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .envelope__hint {
+    bottom: 6%;
+  }
 }
 
 /* =========================================================================

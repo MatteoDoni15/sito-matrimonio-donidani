@@ -553,16 +553,14 @@ function initEnvelopeIntro() {
   const intro = document.getElementById("envelopeIntro");
   const btn = document.getElementById("envelopeButton");
   const envelope = document.getElementById("envelope");
+  const ribbon = document.getElementById("envelopeRibbon");
   if (!intro || !btn || !envelope) return;
 
   document.body.classList.add("intro-lock");
 
-  btn.addEventListener("click", () => {
-    if (envelope.classList.contains("open")) return;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function openEnvelope(reduceMotion) {
     envelope.classList.remove("close");
     envelope.classList.add("open");
-    btn.disabled = true;
 
     const openDelay = reduceMotion ? 0 : 1550;
     setTimeout(() => {
@@ -572,6 +570,40 @@ function initEnvelopeIntro() {
 
     const cleanupDelay = openDelay + (reduceMotion ? 0 : 650);
     setTimeout(() => { intro.remove(); }, cleanupDelay);
+  }
+
+  // Untie the bow with GSAP first, then run the existing CSS-driven
+  // flap/letter/hearts opening once the ribbon has fallen away.
+  function untieRibbon() {
+    const bandL = ribbon.querySelector(".ribbon__band--left");
+    const bandR = ribbon.querySelector(".ribbon__band--right");
+    const tailL = ribbon.querySelector(".ribbon__tail--left");
+    const tailR = ribbon.querySelector(".ribbon__tail--right");
+    const loopL = ribbon.querySelector(".ribbon__loop--left");
+    const loopR = ribbon.querySelector(".ribbon__loop--right");
+    const knot = ribbon.querySelector(".ribbon__knot");
+
+    gsap.timeline({ onComplete: () => openEnvelope(false) })
+      .to(bandL, { x: "-=100%", opacity: 0, duration: 0.55, ease: "power2.in" }, 0)
+      .to(bandR, { x: "+=100%", opacity: 0, duration: 0.55, ease: "power2.in" }, 0)
+      .to(tailL, { rotate: -85, x: "-=16", y: "+=36", opacity: 0, duration: 0.5, ease: "power2.in" }, 0)
+      .to(tailR, { rotate: 85, x: "+=16", y: "+=36", opacity: 0, duration: 0.5, ease: "power2.in" }, 0)
+      .to(loopL, { rotate: -150, x: "-=26", scale: 0.3, opacity: 0, duration: 0.45, ease: "power2.in" }, 0.12)
+      .to(loopR, { rotate: 150, x: "+=26", scale: 0.3, opacity: 0, duration: 0.45, ease: "power2.in" }, 0.12)
+      .to(knot, { y: "-=12", scale: 0.35, opacity: 0, duration: 0.3, ease: "power1.in" }, 0.4);
+  }
+
+  btn.addEventListener("click", () => {
+    if (envelope.classList.contains("open") || btn.disabled) return;
+    btn.disabled = true;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion || !ribbon || typeof gsap === "undefined") {
+      openEnvelope(reduceMotion);
+      return;
+    }
+
+    untieRibbon();
   });
 }
 
