@@ -530,7 +530,7 @@ body.intro-lock {
     radial-gradient(ellipse 90% 65% at 50% 0%, rgb(8 12 18 / 0.55), transparent 60%),
     radial-gradient(ellipse 90% 85% at 50% 100%, rgb(8 12 18 / 0.62), transparent 55%),
     linear-gradient(180deg, rgb(8 12 18 / 0.48) 0%, rgb(8 12 18 / 0.36) 50%, rgb(8 12 18 / 0.56) 100%),
-    url("assets/Valzer/Sfondo_valzer.webp") center 38% / cover no-repeat;
+    url("assets/Valzer/Sfondo_valzer_acquarellato_stanza.webp") center 38% / cover no-repeat;
   background-color: var(--ground-deep);
 }
 
@@ -579,23 +579,23 @@ body.intro-lock {
   }
 
   20% {
-    transform: translate(calc(-50% - 24vw), -7vh) scale(0.82);
+    transform: translate(calc(-50% - 24vw), -4vh) scale(0.9);
   }
 
   40% {
-    transform: translate(calc(-50% - 11vw), -19vh) scale(0.64);
+    transform: translate(calc(-50% - 11vw), -9vh) scale(0.8);
   }
 
   50% {
-    transform: translate(-50%, -24vh) scale(0.58);
+    transform: translate(-50%, -11vh) scale(0.76);
   }
 
   60% {
-    transform: translate(calc(-50% + 11vw), -19vh) scale(0.64);
+    transform: translate(calc(-50% + 11vw), -9vh) scale(0.8);
   }
 
   80% {
-    transform: translate(calc(-50% + 24vw), -7vh) scale(0.82);
+    transform: translate(calc(-50% + 24vw), -4vh) scale(0.9);
   }
 }
 
