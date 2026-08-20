@@ -671,6 +671,23 @@ function initLeaves() {
 }
 
 /* =========================================================================
+   HERO VALZER (sequenza di frame in loop, sfondo salone)
+   ========================================================================= */
+function initHeroValzer() {
+  const frames = document.querySelectorAll(".hero__valzer-frame");
+  if (!frames.length) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) return;
+
+  let current = 0;
+  setInterval(() => {
+    frames[current].classList.remove("is-active");
+    current = (current + 1) % frames.length;
+    frames[current].classList.add("is-active");
+  }, 900);
+}
+
+/* =========================================================================
    VENUE SCENE (toggle giorno/notte)
    ========================================================================= */
 function initVenueScene() {
@@ -696,6 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(tickCountdown, 1000);
   initForm();
   initLeaves();
+  initHeroValzer();
   initStoryFan();
   initEnvelopeIntro();
   initVenueScene();
