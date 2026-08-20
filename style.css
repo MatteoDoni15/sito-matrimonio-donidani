@@ -238,8 +238,6 @@ body.intro-lock {
   display: block;
   width: var(--env-w);
   height: var(--env-h);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
   background-color: #3f5c76;
   box-shadow: 0 24px 48px -20px rgb(20 30 42 / 0.45);
   perspective: 1000px;
@@ -249,17 +247,22 @@ body.intro-lock {
   position: absolute;
   top: 0;
   left: 0;
-  width: 0;
-  height: 0;
+  width: 100%;
+  height: 100%;
   z-index: 3;
   pointer-events: none;
 }
 
+.flap-svg,
+.pocket-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .flap {
-  border-left: calc(var(--env-w) / 2) solid transparent;
-  border-right: calc(var(--env-w) / 2) solid transparent;
-  border-bottom: calc(var(--env-h) / 2 - 8px) solid transparent;
-  border-top: calc(var(--env-h) / 2 + 8px) solid #3f5c76;
   transform-origin: top;
 }
 
@@ -273,15 +276,6 @@ body.intro-lock {
   transform: rotateX(180deg);
   transition: transform 0.5s ease, z-index 0.7s;
   z-index: 1;
-}
-
-.pocket {
-  border-left: calc(var(--env-w) / 2) solid #4c6f8c;
-  border-right: calc(var(--env-w) / 2) solid #4c6f8c;
-  border-bottom: calc(var(--env-h) / 2) solid #45657e;
-  border-top: calc(var(--env-h) / 2) solid transparent;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
 }
 
 .envelope__seal {
@@ -458,30 +452,12 @@ body.intro-lock {
   opacity: 0;
 }
 
-/* On phones the envelope fills the whole screen instead of floating as a
-   small card, so the intro reads as a full-page invitation. */
+/* On phones the envelope keeps the same real-envelope proportions as on
+   desktop (just larger) instead of stretching to fill the screen, which
+   used to distort the flap/pocket shapes into a tall spike. */
 @media (max-width: 640px) {
   #envelope {
-    --env-w: 100vw;
-    --env-h: 100dvh;
-    border-radius: 0;
-  }
-
-  .pocket {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .envelope__hint {
-    bottom: 6%;
-  }
-
-  /* On phones the letter would slide far enough to spill off the
-     viewport, so it stays tucked away and only the hearts play. */
-  #envelope.open .letter {
-    transform: translateY(0);
-    opacity: 0;
-    transition: opacity 0.4s 0.5s ease, z-index 0.6s;
+    --env-w: min(94vw, 420px);
   }
 }
 
