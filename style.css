@@ -547,7 +547,7 @@ body.intro-lock {
   left: 50%;
   bottom: 1.5%;
   z-index: 1;
-  width: clamp(100px, 12vw, 170px);
+  width: clamp(140px, 16vw, 230px);
   aspect-ratio: 923 / 1152;
   transform: translateX(-50%);
   pointer-events: none;
