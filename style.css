@@ -23,26 +23,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ground: #16212b;
-    --ground-raised: #1d2b37;
-    --ground-deep: #0f1820;
-    --ink: #eef3f7;
-    --ink-soft: #c2d0da;
-    --ink-faint: #8aa0b0;
-    --accent: #e6bd5c;
-    --accent-hover: #f0cd7a;
-    --accent-ink: #0f1e29;
-    --wine: #8fb4d6;
-    --gold: #e8c774;
-    --gold-line: #9c8152;
-    --line: rgba(238, 243, 247, 0.16);
-    --shadow: 0 0 0;
-    color-scheme: dark;
-  }
-}
-
 :root[data-theme="dark"] {
   --ground: #16212b;
   --ground-raised: #1d2b37;
