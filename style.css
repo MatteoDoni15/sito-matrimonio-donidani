@@ -599,7 +599,7 @@ body.intro-lock {
   border-radius: 14px;
   overflow: hidden;
   filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.4));
-  animation: heroValzerRoam 16s ease-in-out infinite;
+  animation: heroValzerRoam 20s ease-in-out infinite;
 }
 
 .hero__valzer-frame {
@@ -623,16 +623,24 @@ body.intro-lock {
     transform: translate(-50%, 0) scale(1);
   }
 
-  25% {
-    transform: translate(calc(-50% - 7vw), -1.2vh) scale(0.96);
+  20% {
+    transform: translate(calc(-50% - 24vw), -7vh) scale(0.82);
+  }
+
+  40% {
+    transform: translate(calc(-50% - 11vw), -19vh) scale(0.64);
   }
 
   50% {
-    transform: translate(-50%, -2.4vh) scale(0.92);
+    transform: translate(-50%, -24vh) scale(0.58);
   }
 
-  75% {
-    transform: translate(calc(-50% + 7vw), -1.2vh) scale(0.96);
+  60% {
+    transform: translate(calc(-50% + 11vw), -19vh) scale(0.64);
+  }
+
+  80% {
+    transform: translate(calc(-50% + 24vw), -7vh) scale(0.82);
   }
 }
 
