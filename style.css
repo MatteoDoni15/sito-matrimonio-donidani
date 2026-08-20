@@ -1061,9 +1061,32 @@ body.intro-lock {
    DETAILS
    ========================================================================= */
 .details {
+  position: relative;
   background:
     radial-gradient(ellipse 90% 80% at 50% 0%, rgb(62 102 144 / 0.16), transparent 65%),
     var(--ground-deep);
+}
+
+.details__decor {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  /* larghezza = spazio libero a lato del blocco (--wide-w), con un margine
+     di sicurezza: si adatta sempre allo spazio reale invece di sparire
+     di netto a una soglia fissa */
+  width: clamp(0px, calc((100vw - var(--wide-w)) / 2 - 2rem), 260px);
+  aspect-ratio: 1123 / 1401;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 18px 30px rgb(var(--shadow) / 0.25));
+}
+
+@media (min-width: 1150px) {
+  .details__decor {
+    display: block;
+  }
 }
 
 .details .section-inner {
@@ -1303,10 +1326,30 @@ body.intro-lock {
    COUNTDOWN
    ========================================================================= */
 .countdown {
+  position: relative;
   background:
     radial-gradient(ellipse 80% 100% at 50% 0%, rgb(232 212 168 / 0.14), transparent 60%),
     linear-gradient(180deg, #2e4a63, #16232f 100%);
   color: #fff9ee;
+}
+
+.countdown__decor {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  width: clamp(0px, calc((100vw - var(--content-w)) / 2 - 2rem), 260px);
+  aspect-ratio: 923 / 1152;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.4));
+}
+
+@media (min-width: 1150px) {
+  .countdown__decor {
+    display: block;
+  }
 }
 
 .countdown h2,
@@ -1361,9 +1404,29 @@ body.intro-lock {
    RSVP
    ========================================================================= */
 .rsvp {
+  position: relative;
   background:
     radial-gradient(ellipse 90% 70% at 50% 100%, rgb(62 102 144 / 0.14), transparent 65%),
     var(--ground-deep);
+}
+
+.rsvp__decor {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  width: clamp(0px, calc((100vw - var(--content-w)) / 2 - 2rem), 260px);
+  aspect-ratio: 923 / 1152;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 18px 30px rgb(var(--shadow) / 0.25));
+}
+
+@media (min-width: 1150px) {
+  .rsvp__decor {
+    display: block;
+  }
 }
 
 .rsvp__intro {
@@ -1665,7 +1728,27 @@ body.intro-lock {
    PHOTOS
    ========================================================================= */
 .photos {
+  position: relative;
   background: var(--ground-raised);
+}
+
+.photos__decor {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  width: clamp(0px, calc((100vw - var(--content-w)) / 2 - 2rem), 260px);
+  aspect-ratio: 923 / 1152;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 18px 30px rgb(var(--shadow) / 0.25));
+}
+
+@media (min-width: 1150px) {
+  .photos__decor {
+    display: block;
+  }
 }
 
 .photos__text {
@@ -1965,5 +2048,26 @@ body.intro-lock {
   .gallery-lightbox__nav {
     width: 2.3rem;
     height: 2.3rem;
+  }
+}
+
+/* =========================================================================
+   ILLUSTRAZIONI DECORATIVE — VERSIONE MOBILE
+   Sotto i 1150px non c'è spazio a lato: le illustrazioni si mostrano
+   comunque, impilate sopra il titolo della sezione invece che di fianco.
+   Regola in fondo al file di proposito: deve vincere sulle regole di base
+   di ciascuna .xxx__decor (stessa specificità, l'ultima in ordine vince).
+   ========================================================================= */
+@media (max-width: 1149px) {
+
+  .details__decor,
+  .photos__decor,
+  .countdown__decor,
+  .rsvp__decor {
+    display: block;
+    position: static;
+    width: clamp(90px, 28vw, 150px);
+    margin: 0 auto 1.5rem;
+    transform: none;
   }
 }
