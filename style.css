@@ -534,6 +534,21 @@ body.intro-lock {
   background-color: var(--ground-deep);
 }
 
+/* Su schermi proporzionalmente più larghi, "cover" ritaglia sempre più
+   pavimento in basso: spostiamo il punto di ancoraggio verso il basso
+   per tenere il pavimento in vista sotto i ballerini. */
+@media (min-aspect-ratio: 17/10) {
+  .hero {
+    background-position: center 58%;
+  }
+}
+
+@media (min-aspect-ratio: 2/1) {
+  .hero {
+    background-position: center 74%;
+  }
+}
+
 .hero__leaves {
   position: absolute;
   inset: 0;
