@@ -37,9 +37,10 @@ const CONFIG = {
     mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
   },
   reception: {
-    it: { venue: "[Nome della location]", address: "[Indirizzo], [Città]" },
-    ro: { venue: "[Numele locației]", address: "[Adresa], [Orașul]" },
-    time: "19:00"
+    it: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
+    ro: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
+    time: "19:00",
+    mapUrl: "https://maps.app.goo.gl/N1EwTbrXoQiyZVzW8"
   }
 };
 
@@ -66,7 +67,7 @@ const I18N = {
     receptionLabel: "Ricevimento",
     dressCodeLabel: "Dress code",
     dressCodeValue: "Elegante, nei toni caldi dell'autunno",
-    detailsNote: "Vi terremo aggiornati con la mappa e tutti i dettagli via email.",
+    detailsNote: "",
     directionsLabel: "Come arrivare →",
 
     venueEyebrow: "La location",
@@ -156,7 +157,7 @@ const I18N = {
     receptionLabel: "Petrecere",
     dressCodeLabel: "Ținută recomandată",
     dressCodeValue: "Eleganță, în nuanțe calde de toamnă",
-    detailsNote: "Vă vom trimite harta și toate detaliile pe email.",
+    detailsNote: "",
     directionsLabel: "Vezi traseul →",
 
     venueEyebrow: "Locația",
@@ -291,6 +292,11 @@ function applyLanguage(lang) {
   document.getElementById("receptionVenue").textContent = rec.venue;
   document.getElementById("receptionAddress").textContent = rec.address;
   document.getElementById("receptionTime").textContent = CONFIG.reception.time;
+  const receptionMapLink = document.getElementById("receptionMapLink");
+  if (receptionMapLink && CONFIG.reception.mapUrl) {
+    receptionMapLink.href = CONFIG.reception.mapUrl;
+    receptionMapLink.hidden = false;
+  }
 
   document.getElementById("contactEmailLink").textContent = CONFIG.contactEmail;
   document.getElementById("contactEmailLink").setAttribute("href", "mailto:" + CONFIG.contactEmail);
@@ -695,10 +701,18 @@ function initVenueScene() {
   const toggle = document.getElementById("venueToggle");
   if (!frame || !toggle) return;
 
-  toggle.addEventListener("click", () => {
-    const isNight = frame.classList.toggle("is-night");
+  function setNight(isNight) {
+    frame.classList.toggle("is-night", isNight);
     toggle.setAttribute("aria-pressed", String(isNight));
+  }
+
+  toggle.addEventListener("click", () => {
+    setNight(!frame.classList.contains("is-night"));
   });
+
+  setInterval(() => {
+    setNight(!frame.classList.contains("is-night"));
+  }, 4000);
 }
 
 /* =========================================================================
