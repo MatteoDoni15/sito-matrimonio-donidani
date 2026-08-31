@@ -71,7 +71,7 @@ const I18N = {
     ceremonyLabel: "Cerimonia",
     receptionLabel: "Ricevimento",
     dressCodeLabel: "Dress code",
-    dressCodeValue: "Elegante, nei toni caldi dell'autunno",
+    dressCodeValue: "Felici ed eleganti",
     detailsNote: "",
     directionsLabel: "Come arrivare →",
 
@@ -170,7 +170,7 @@ const I18N = {
     ceremonyLabel: "Cununie",
     receptionLabel: "Petrecere",
     dressCodeLabel: "Ținută recomandată",
-    dressCodeValue: "Eleganță, în nuanțe calde de toamnă",
+    dressCodeValue: "Fericiți și eleganți",
     detailsNote: "",
     directionsLabel: "Vezi traseul →",
 
