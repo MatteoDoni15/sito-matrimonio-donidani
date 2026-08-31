@@ -2105,10 +2105,10 @@ body.intro-lock {
      padding-bottom si somma al padding-top del footer, creando un
      vuoto eccessivo prima del cuoricino e dei saluti finali. */
   .contact .section-inner {
-    padding-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .site-footer {
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
   }
 }
