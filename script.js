@@ -309,7 +309,7 @@ function applyLanguage(lang) {
   });
 
   document.getElementById("heroDate").textContent = capitalize(formatDate(CONFIG.weddingDateISO, lang, t.weekdayMonthYear));
-  document.getElementById("rsvpDeadline").textContent = formatDate(CONFIG.rsvpDeadlineISO, lang, t.deadlineFormat);
+  document.getElementById("rsvpDeadline").textContent = formatDate(CONFIG.rsvpDeadlineISO, lang, t.deadlineFormat).replace(/ /g, " ");
 
   const cer = CONFIG.ceremony[lang];
   const rec = CONFIG.reception[lang];
