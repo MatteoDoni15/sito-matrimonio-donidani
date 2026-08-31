@@ -800,6 +800,10 @@ body.intro-lock {
   margin: 0 auto;
 }
 
+.story__text p + p {
+  margin-top: 1em;
+}
+
 /* =========================================================================
    STORY PHOTO FAN
    All photos visible at once, drifting gently with the cursor on desktop;

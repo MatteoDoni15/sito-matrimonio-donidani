@@ -59,7 +59,12 @@ const I18N = {
 
     storyEyebrow: "La nostra storia",
     storyTitle: "Un cammino, due cuori",
-    storyText: "Ogni storia d'amore ha la sua stagione, e la nostra sboccia proprio in autunno: tra foglie dorate e luci calde, abbiamo scelto di dirci per sempre di sì. Non vediamo l'ora di condividere questo giorno con le persone che amiamo di più.",
+    storyText: [
+      "La nostra storia è iniziata tra i libri di una biblioteca, quasi per caso. Diversi, complici e curiosi l'uno dell'altra, abbiamo riempito il nostro cammino di viaggi, risate, avventure e sogni condivisi, lasciandoci sorprendere dall'altro e dalla vita e scoprendo che la strada più bella è quella che percorriamo insieme.",
+      "E oggi, con il cuore pieno di gioia e forse un po' troppo entusiasmo, siamo felici di annunciarvi che il 7 novembre 2026 faremo il passo più bello: sposarci!",
+      "Ci diremo quel “sì” che aspettavamo e daremo inizio al nostro “e vissero felici e contenti”.",
+      "Tra foglie dorate, luci calde e la magia di un castello, non vediamo l'ora di condividere questo giorno con voi, le persone che amiamo di più."
+    ],
 
     detailsEyebrow: "Il nostro giorno",
     detailsTitle: "Cerimonia e ricevimento",
@@ -149,7 +154,16 @@ const I18N = {
 
     storyEyebrow: "Povestea noastră",
     storyTitle: "Un drum, două inimi",
-    storyText: "Fiecare poveste de dragoste are anotimpul ei, iar a noastră înflorește tocmai toamna: printre frunze aurii și lumini calde, am ales să ne spunem pentru totdeauna da. Abia așteptăm să împărtășim această zi cu oamenii pe care îi iubim cel mai mult.",
+    storyText: [
+      "Povestea noastră a început printre cărțile unei biblioteci, aproape din întâmplare. Două suflete diferite, dar care s-au regăsit unul în celălalt, am pornit împreună la drum, descoperind, pas cu pas, bucuria călătoriilor, farmecul aventurilor, frumusețea visurilor împărtășite și nenumărate motive de a zâmbi.",
+      "Ne-am lăsat surprinși unul de celălalt și de viață și am înțeles că, dintre toate drumurile pe care le putem alege, cel mai frumos este cel pe care îl parcurgem împreună.",
+      "Astăzi, cu inimile pline de emoție și bucurie, suntem fericiți să vă anunțăm că, pe 7 noiembrie 2026, vom face cel mai important și mai frumos pas al vieții noastre:",
+      "ne vom căsători!",
+      "Vom spune acel „DA” pe care l-am așteptat cu nerăbdare și vom începe împreună un nou capitol al poveștii noastre, cu promisiunea unei vieți pline de iubire, zâmbete și momente de neuitat.",
+      "Iar pentru că cele mai frumoase clipe sunt cele împărtășite cu oamenii dragi, ne dorim din tot sufletul să ne fiți alături în această zi atât de specială.",
+      "În decorul fermecător al unui castel, printre frunze aurii și lumini calde, vom celebra iubirea noastră și începutul unei noi călătorii în doi.",
+      "Abia așteptăm să sărbătorim împreună cu voi!"
+    ],
 
     detailsEyebrow: "Ziua noastră",
     detailsTitle: "Cununie și petrecere",
@@ -243,6 +257,10 @@ function detectInitialLang() {
   return navigator.language && navigator.language.toLowerCase().startsWith("ro") ? "ro" : "it";
 }
 
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+}
+
 function formatDate(iso, lang, opts) {
   const d = new Date(iso);
   return new Intl.DateTimeFormat(I18N[lang].dateLocale, opts).format(d);
@@ -257,7 +275,12 @@ function applyLanguage(lang) {
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (t[key] !== undefined) el.textContent = t[key];
+    if (t[key] === undefined) return;
+    if (Array.isArray(t[key])) {
+      el.innerHTML = t[key].map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
+    } else {
+      el.textContent = t[key];
+    }
   });
   document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
     const key = el.getAttribute("data-i18n-ph");
