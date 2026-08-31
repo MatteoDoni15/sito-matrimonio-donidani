@@ -31,7 +31,7 @@ const CONFIG = {
   ceremony: {
     it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
     ro: { venue: "Parohia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
-    time: "11:00",
+    time: "11:30",
     // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
     // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
     mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
@@ -39,7 +39,7 @@ const CONFIG = {
   reception: {
     it: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
     ro: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
-    time: "19:00",
+    time: "13:45",
     mapUrl: "https://maps.app.goo.gl/N1EwTbrXoQiyZVzW8"
   }
 };
@@ -77,8 +77,8 @@ const I18N = {
 
     venueEyebrow: "La location",
     venueTitle: "Vi aspettiamo qui",
-    venueText: "Dal tramonto alle stelle: sfiora l'interruttore per vedere come si trasforma la sera.",
-    venueToggleLabel: "Passa dal giorno alla notte",
+    venueText: "",
+    venueToggleLabel: "",
 
     countdownEyebrow: "Manca sempre meno",
     countdownTitle: "Il conto alla rovescia",
@@ -89,7 +89,7 @@ const I18N = {
 
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confermate la vostra presenza",
-    rsvpIntro: "Per organizzare al meglio questo giorno speciale, vi chiediamo di rispondere entro il",
+    rsvpIntro: "Per organizzare al meglio questo giorno speciale, vi chiediamo di rispondere entro",
     labelFullName: "Nome e cognome",
     placeholderFullName: "Il tuo nome completo",
     labelAttending: "Sarai presente?",
@@ -109,8 +109,8 @@ const I18N = {
     labelMessage: "Un messaggio per gli sposi",
     placeholderMessage: "Scrivi qui i tuoi auguri...",
 
-    giftToggle: "Per chi desiderasse farci un pensiero",
-    giftIntro: "La vostra presenza è già il regalo più bello. Se preferite comunque un gesto, ecco i nostri dati per un bonifico:",
+    giftToggle: "Per chi desiderasse farci un regalo",
+    giftIntro: "La vostra presenza è già il regalo più bello. Se desiderate contribuire al nostro viaggio di nozze, ecco i nostri dati per un bonifico:",
     giftBeneficiaryLabel: "Beneficiario",
     giftIbanLabel: "IBAN",
     giftBicLabel: "BIC/SWIFT",
@@ -141,7 +141,7 @@ const I18N = {
 
     dateLocale: "it-IT",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
-    deadlineFormat: { day: "numeric", month: "long", year: "numeric" }
+    deadlineFormat: { month: "long", year: "numeric" }
   },
   ro: {
     pageTitle: "Matteo & Daniela — Nunta noastră",
@@ -176,8 +176,8 @@ const I18N = {
 
     venueEyebrow: "Locația",
     venueTitle: "Vă așteptăm aici",
-    venueText: "De la apus la stele: atinge comutatorul ca să vezi cum se transformă seara.",
-    venueToggleLabel: "Treci de la zi la noapte",
+    venueText: "",
+    venueToggleLabel: "",
 
     countdownEyebrow: "Numărătoarea inversă",
     countdownTitle: "Mai sunt doar...",
@@ -188,7 +188,7 @@ const I18N = {
 
     rsvpEyebrow: "RSVP",
     rsvpTitle: "Confirmați-vă prezența",
-    rsvpIntro: "Pentru a organiza cât mai bine această zi specială, vă rugăm să răspundeți până pe",
+    rsvpIntro: "Pentru a organiza cât mai bine această zi specială, vă rugăm să răspundeți până în",
     labelFullName: "Nume și prenume",
     placeholderFullName: "Numele tău complet",
     labelAttending: "Vei fi prezent/ă?",
@@ -209,7 +209,7 @@ const I18N = {
     placeholderMessage: "Scrie aici gândurile tale bune...",
 
     giftToggle: "Pentru cei care doresc să ne facă un cadou",
-    giftIntro: "Prezența voastră este deja cel mai frumos cadou. Dacă preferați totuși un gest, aici găsiți datele pentru un transfer bancar:",
+    giftIntro: "Prezența voastră este deja cel mai frumos cadou. Dacă doriți să contribuiți la călătoria noastră de nuntă, aici găsiți datele pentru un transfer bancar:",
     giftBeneficiaryLabel: "Beneficiar",
     giftIbanLabel: "IBAN",
     giftBicLabel: "BIC/SWIFT",
@@ -240,7 +240,7 @@ const I18N = {
 
     dateLocale: "ro-RO",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
-    deadlineFormat: { day: "numeric", month: "long", year: "numeric" }
+    deadlineFormat: { month: "long", year: "numeric" }
   }
 };
 
