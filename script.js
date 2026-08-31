@@ -505,6 +505,14 @@ function initStoryFan() {
     root.classList.add("is-visible");
   }
 
+  // Let a plain vertical mouse wheel drive the horizontal scroll strip.
+  track.addEventListener("wheel", (e) => {
+    if (track.scrollWidth <= track.clientWidth) return;
+    if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    track.scrollLeft += e.deltaY;
+  }, { passive: false });
+
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (reduceMotion || !canHover) return;

@@ -814,17 +814,41 @@ body.intro-lock {
 
 .story-fan__track {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   max-width: 76rem;
-  height: 230px;
   margin: 0 auto;
+  padding: 3.2rem 1.5rem 2.6rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 1.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-faint) transparent;
+}
+
+.story-fan__track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.story-fan__track::-webkit-scrollbar-thumb {
+  background: var(--ink-faint);
+  border-radius: 999px;
+}
+
+.story-fan__track::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .story-fan__card {
-  position: absolute;
-  top: 0;
+  position: relative;
+  flex: 0 0 auto;
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s cubic-bezier(0.22, 0.8, 0.32, 1), transform 0.7s cubic-bezier(0.22, 0.8, 0.32, 1);
+  scroll-snap-align: start;
 }
 
 .story-fan.is-visible .story-fan__card {
@@ -862,146 +886,115 @@ body.intro-lock {
   display: block;
 }
 
-.story-fan__card:nth-child(1) {
-  left: 0%;
+/* Sizes and tilt cycle every 11 cards, so the fan keeps its varied look
+   no matter how many photos get added to the strip. */
+.story-fan__card:nth-child(11n+1) {
   width: 118px;
   height: 158px;
-  top: 46px;
-  z-index: 2;
   transition-delay: 0ms;
 }
 
-.story-fan__card:nth-child(2) {
-  left: 9%;
+.story-fan__card:nth-child(11n+2) {
   width: 142px;
   height: 190px;
-  top: 16px;
-  z-index: 4;
   transition-delay: 60ms;
 }
 
-.story-fan__card:nth-child(3) {
-  left: 18%;
+.story-fan__card:nth-child(11n+3) {
   width: 108px;
   height: 146px;
-  top: 62px;
-  z-index: 1;
   transition-delay: 120ms;
 }
 
-.story-fan__card:nth-child(4) {
-  left: 26%;
+.story-fan__card:nth-child(11n+4) {
   width: 158px;
   height: 212px;
-  top: -6px;
-  z-index: 5;
   transition-delay: 180ms;
 }
 
-.story-fan__card:nth-child(5) {
-  left: 37%;
+.story-fan__card:nth-child(11n+5) {
   width: 126px;
   height: 170px;
-  top: 48px;
-  z-index: 2;
   transition-delay: 240ms;
 }
 
-.story-fan__card:nth-child(6) {
-  left: 46%;
+.story-fan__card:nth-child(11n+6) {
   width: 182px;
   height: 244px;
-  top: -16px;
-  z-index: 6;
   transition-delay: 300ms;
 }
 
-.story-fan__card:nth-child(7) {
-  left: 58%;
+.story-fan__card:nth-child(11n+7) {
   width: 130px;
   height: 176px;
-  top: 42px;
-  z-index: 3;
   transition-delay: 360ms;
 }
 
-.story-fan__card:nth-child(8) {
-  left: 66%;
+.story-fan__card:nth-child(11n+8) {
   width: 154px;
   height: 208px;
-  top: 4px;
-  z-index: 5;
   transition-delay: 420ms;
 }
 
-.story-fan__card:nth-child(9) {
-  left: 76%;
+.story-fan__card:nth-child(11n+9) {
   width: 108px;
   height: 146px;
-  top: 58px;
-  z-index: 1;
   transition-delay: 480ms;
 }
 
-.story-fan__card:nth-child(10) {
-  left: 82%;
+.story-fan__card:nth-child(11n+10) {
   width: 132px;
   height: 178px;
-  top: 20px;
-  z-index: 4;
   transition-delay: 540ms;
 }
 
-.story-fan__card:nth-child(11) {
-  left: 86%;
+.story-fan__card:nth-child(11n+11) {
   width: 96px;
   height: 130px;
-  top: 62px;
-  z-index: 1;
   transition-delay: 600ms;
 }
 
-.story-fan__card:nth-child(1) .story-fan__parallax {
+.story-fan__card:nth-child(11n+1) .story-fan__parallax {
   --base-rot: -9deg;
 }
 
-.story-fan__card:nth-child(2) .story-fan__parallax {
+.story-fan__card:nth-child(11n+2) .story-fan__parallax {
   --base-rot: -6deg;
 }
 
-.story-fan__card:nth-child(3) .story-fan__parallax {
+.story-fan__card:nth-child(11n+3) .story-fan__parallax {
   --base-rot: 5deg;
 }
 
-.story-fan__card:nth-child(4) .story-fan__parallax {
+.story-fan__card:nth-child(11n+4) .story-fan__parallax {
   --base-rot: -3deg;
 }
 
-.story-fan__card:nth-child(5) .story-fan__parallax {
+.story-fan__card:nth-child(11n+5) .story-fan__parallax {
   --base-rot: 6deg;
 }
 
-.story-fan__card:nth-child(6) .story-fan__parallax {
+.story-fan__card:nth-child(11n+6) .story-fan__parallax {
   --base-rot: -4deg;
 }
 
-.story-fan__card:nth-child(7) .story-fan__parallax {
+.story-fan__card:nth-child(11n+7) .story-fan__parallax {
   --base-rot: 5deg;
 }
 
-.story-fan__card:nth-child(8) .story-fan__parallax {
+.story-fan__card:nth-child(11n+8) .story-fan__parallax {
   --base-rot: -7deg;
 }
 
-.story-fan__card:nth-child(9) .story-fan__parallax {
+.story-fan__card:nth-child(11n+9) .story-fan__parallax {
   --base-rot: 7deg;
 }
 
-.story-fan__card:nth-child(10) .story-fan__parallax {
+.story-fan__card:nth-child(11n+10) .story-fan__parallax {
   --base-rot: -5deg;
 }
 
-.story-fan__card:nth-child(11) .story-fan__parallax {
+.story-fan__card:nth-child(11n+11) .story-fan__parallax {
   --base-rot: 8deg;
 }
 
@@ -1011,7 +1004,6 @@ body.intro-lock {
 }
 
 .story-fan__hint {
-  display: none;
   margin-top: 1rem;
   font-size: 0.8rem;
   color: var(--ink-faint);
@@ -1025,35 +1017,23 @@ body.intro-lock {
   }
 
   .story-fan__track {
-    display: flex;
     align-items: flex-start;
     gap: 0.9rem;
     max-width: none;
-    height: auto;
-    overflow-x: auto;
-    overflow-y: visible;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     scroll-padding-inline: 1.3rem;
     padding: 0.4rem 1.3rem 1.4rem;
   }
 
   .story-fan__track>.story-fan__card {
-    position: static;
     width: min(64vw, 240px);
     height: auto;
     aspect-ratio: 3 / 4;
-    flex: 0 0 auto;
-    scroll-snap-align: start;
   }
 
   .story-fan__track .story-fan__parallax,
   .story-fan__track .story-fan__inner {
     transform: none;
-  }
-
-  .story-fan__hint {
-    display: block;
   }
 }
 
