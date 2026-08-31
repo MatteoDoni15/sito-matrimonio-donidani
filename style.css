@@ -793,6 +793,10 @@ body.intro-lock {
   background: radial-gradient(ellipse 80% 60% at 50% 100%, rgb(62 102 144 / 0.1), transparent 65%);
 }
 
+.story .section-inner {
+  padding-bottom: 2rem;
+}
+
 .story__text {
   font-size: 1.08rem;
   color: var(--ink-soft);
@@ -812,7 +816,7 @@ body.intro-lock {
 .story-fan {
   position: relative;
   width: 100vw;
-  margin: 3.6rem calc(50% - 50vw) 0;
+  margin: 1.6rem calc(50% - 50vw) 0;
   padding: 0 1.5rem;
 }
 
@@ -1038,7 +1042,7 @@ body.intro-lock {
 
 @media (max-width: 900px) {
   .story-fan {
-    margin-top: 2.6rem;
+    margin-top: 1.2rem;
     padding: 0;
   }
 
@@ -2094,6 +2098,17 @@ body.intro-lock {
      margine), creando un vuoto eccessivo a inizio sezione: lo si
      riduce, per ogni sezione, con o senza illustrazione. */
   .section-inner {
+    padding-top: 1.5rem;
+  }
+
+  /* La sezione .contact non ha un divider prima del footer: il suo
+     padding-bottom si somma al padding-top del footer, creando un
+     vuoto eccessivo prima del cuoricino e dei saluti finali. */
+  .contact .section-inner {
+    padding-bottom: 1.5rem;
+  }
+
+  .site-footer {
     padding-top: 1.5rem;
   }
 }

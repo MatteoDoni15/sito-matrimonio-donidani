@@ -8,7 +8,7 @@ const CONFIG = {
   weddingDateISO: "2026-11-07T16:00:00",
 
   // Entro quando rispondere / Termen limită pentru răspuns
-  rsvpDeadlineISO: "2026-10-10T23:59:00",
+  rsvpDeadlineISO: "2026-10-01T23:59:00",
 
   // Indirizzo email che ricevera le conferme RSVP / Adresa de email care va primi confirmările RSVP
   // IMPORTANTE: la prima volta che qualcuno invia il modulo, FormSubmit ti manda
@@ -148,7 +148,7 @@ const I18N = {
 
     dateLocale: "it-IT",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
-    deadlineFormat: { month: "long", year: "numeric" }
+    deadlineFormat: { day: "numeric", month: "long", year: "numeric" }
   },
   ro: {
     pageTitle: "Matteo & Daniela — Nunta noastră",
@@ -249,7 +249,7 @@ const I18N = {
 
     dateLocale: "ro-RO",
     weekdayMonthYear: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
-    deadlineFormat: { month: "long", year: "numeric" }
+    deadlineFormat: { day: "numeric", month: "long", year: "numeric" }
   }
 };
 
