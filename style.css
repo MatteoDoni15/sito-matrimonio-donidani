@@ -2067,7 +2067,7 @@ body.intro-lock {
     display: block;
     position: static;
     width: clamp(90px, 28vw, 150px);
-    margin: 0 auto 0.75rem;
+    margin: 0 auto 0.3rem;
     transform: none;
   }
 
@@ -2077,6 +2077,6 @@ body.intro-lock {
      margine), creando un vuoto eccessivo a inizio sezione: lo si
      riduce, per ogni sezione, con o senza illustrazione. */
   .section-inner {
-    padding-top: 2.75rem;
+    padding-top: 1.5rem;
   }
 }
