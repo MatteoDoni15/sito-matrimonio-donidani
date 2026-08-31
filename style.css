@@ -1805,9 +1805,16 @@ body.intro-lock {
   background: var(--ground-deep);
 }
 
+.contact__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
 .contact__email {
   display: inline-block;
-  margin-top: 0.6rem;
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--accent);

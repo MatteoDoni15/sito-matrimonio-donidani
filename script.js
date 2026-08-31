@@ -17,6 +17,11 @@ const CONFIG = {
   // un email de confirmare: trebuie să apeși linkul din el ca să activezi trimiterea.
   contactEmail: "popoiudaniela.dp@gmail.com",
 
+  // Contatti aggiuntivi mostrati nella sezione "Domande?" / Contacte suplimentare afișate în secțiunea "Întrebări?"
+  contactEmail2: "teoxdoni@gmail.com",
+  contactPhone1: "349 196 8610",
+  contactPhone2: "346 028 6234",
+
   // URL del Google Apps Script "Web app" per salvare ogni RSVP anche in un Google Sheet.
   // Lascia vuoto ("") per disattivare: il sito funziona lo stesso, solo via email.
   // URL-ul aplicației web Google Apps Script pentru a salva fiecare RSVP și într-un Google Sheet.
@@ -106,6 +111,8 @@ const I18N = {
     placeholderChildrenNames: "Es. Sofia (5), Leo (8)",
     labelDietary: "Allergie o intolleranze alimentari",
     placeholderDietary: "Facci sapere se hai esigenze particolari",
+    labelSong: "Una canzone che non può mancare",
+    placeholderSong: "Suggeriscici un brano per la playlist della festa",
     labelMessage: "Un messaggio per gli sposi",
     placeholderMessage: "Scrivi qui i tuoi auguri...",
 
@@ -205,6 +212,8 @@ const I18N = {
     placeholderChildrenNames: "Ex. Sofia (5), Leo (8)",
     labelDietary: "Alergii sau restricții alimentare",
     placeholderDietary: "Spune-ne dacă ai nevoi speciale",
+    labelSong: "O melodie pe care nu vrei să lipsească",
+    placeholderSong: "Sugerează-ne o piesă pentru playlist-ul petrecerii",
     labelMessage: "Un mesaj pentru miri",
     placeholderMessage: "Scrie aici gândurile tale bune...",
 
@@ -323,6 +332,12 @@ function applyLanguage(lang) {
 
   document.getElementById("contactEmailLink").textContent = CONFIG.contactEmail;
   document.getElementById("contactEmailLink").setAttribute("href", "mailto:" + CONFIG.contactEmail);
+  document.getElementById("contactEmailLink2").textContent = CONFIG.contactEmail2;
+  document.getElementById("contactEmailLink2").setAttribute("href", "mailto:" + CONFIG.contactEmail2);
+  document.getElementById("contactPhoneLink1").textContent = CONFIG.contactPhone1;
+  document.getElementById("contactPhoneLink1").setAttribute("href", "tel:+39" + CONFIG.contactPhone1.replace(/\s+/g, ""));
+  document.getElementById("contactPhoneLink2").textContent = CONFIG.contactPhone2;
+  document.getElementById("contactPhoneLink2").setAttribute("href", "tel:+39" + CONFIG.contactPhone2.replace(/\s+/g, ""));
 
   document.getElementById("photosLink").setAttribute("href", CONFIG.photosDriveUrl);
 

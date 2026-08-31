@@ -18,12 +18,12 @@ const SHEET_NAME = "Risposte RSVP";
 const FIELDS = [
   "fullName", "attending", "plusOne", "plusOneName",
   "children", "childrenCount", "childrenNames",
-  "dietary", "message", "language"
+  "dietary", "song", "message", "language"
 ];
 
 const HEADERS = [
   "Data e ora", "Nome e cognome", "Presente", "Con +1", "Nome +1",
-  "Con bambini", "N. bambini", "Nomi bambini", "Allergie", "Messaggio", "Lingua"
+  "Con bambini", "N. bambini", "Nomi bambini", "Allergie", "Canzone", "Messaggio", "Lingua"
 ];
 
 function doPost(e) {
