@@ -513,6 +513,31 @@ function initStoryFan() {
     track.scrollLeft += e.deltaY;
   }, { passive: false });
 
+  // Click-and-drag to spin through the fan like a wheel (mouse only; touch
+  // already scrolls natively via overflow-x).
+  track.addEventListener("dragstart", (e) => e.preventDefault());
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+
+  track.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartScroll = track.scrollLeft;
+    track.classList.add("is-dragging");
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    track.scrollLeft = dragStartScroll - (e.clientX - dragStartX);
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove("is-dragging");
+  });
+
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (reduceMotion || !canHover) return;
@@ -557,6 +582,7 @@ function initStoryFan() {
   track.querySelectorAll(".story-fan__inner").forEach((card) => {
     const outer = card.closest(".story-fan__card");
     card.addEventListener("mousemove", (e) => {
+      if (isDragging) return;
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;

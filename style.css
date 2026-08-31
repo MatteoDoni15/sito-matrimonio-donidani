@@ -815,40 +815,38 @@ body.intro-lock {
 .story-fan__track {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-start;
   max-width: 76rem;
   margin: 0 auto;
   padding: 3.2rem 1.5rem 2.6rem;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: 1.5rem;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ink-faint) transparent;
+}
+
+.story-fan__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
 }
 
 .story-fan__track::-webkit-scrollbar {
-  height: 6px;
-}
-
-.story-fan__track::-webkit-scrollbar-thumb {
-  background: var(--ink-faint);
-  border-radius: 999px;
-}
-
-.story-fan__track::-webkit-scrollbar-track {
-  background: transparent;
+  display: none;
 }
 
 .story-fan__card {
   position: relative;
   flex: 0 0 auto;
+  margin-left: -1.1rem;
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s cubic-bezier(0.22, 0.8, 0.32, 1), transform 0.7s cubic-bezier(0.22, 0.8, 0.32, 1);
-  scroll-snap-align: start;
+}
+
+.story-fan__card:first-child {
+  margin-left: 0;
 }
 
 .story-fan.is-visible .story-fan__card {
@@ -884,6 +882,8 @@ body.intro-lock {
   height: 100%;
   object-fit: cover;
   display: block;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* Sizes and tilt cycle every 11 cards, so the fan keeps its varied look
@@ -891,66 +891,88 @@ body.intro-lock {
 .story-fan__card:nth-child(11n+1) {
   width: 118px;
   height: 158px;
+  top: 46px;
+  z-index: 2;
   transition-delay: 0ms;
 }
 
 .story-fan__card:nth-child(11n+2) {
   width: 142px;
   height: 190px;
+  top: 16px;
+  z-index: 4;
   transition-delay: 60ms;
 }
 
 .story-fan__card:nth-child(11n+3) {
   width: 108px;
   height: 146px;
+  top: 62px;
+  z-index: 1;
   transition-delay: 120ms;
 }
 
 .story-fan__card:nth-child(11n+4) {
   width: 158px;
   height: 212px;
+  top: -6px;
+  z-index: 5;
   transition-delay: 180ms;
 }
 
 .story-fan__card:nth-child(11n+5) {
   width: 126px;
   height: 170px;
+  top: 48px;
+  z-index: 2;
   transition-delay: 240ms;
 }
 
 .story-fan__card:nth-child(11n+6) {
   width: 182px;
   height: 244px;
+  top: -16px;
+  z-index: 6;
   transition-delay: 300ms;
 }
 
 .story-fan__card:nth-child(11n+7) {
   width: 130px;
   height: 176px;
+  top: 42px;
+  z-index: 3;
   transition-delay: 360ms;
 }
 
 .story-fan__card:nth-child(11n+8) {
   width: 154px;
   height: 208px;
+  top: 4px;
+  z-index: 5;
   transition-delay: 420ms;
 }
 
 .story-fan__card:nth-child(11n+9) {
   width: 108px;
   height: 146px;
+  top: 58px;
+  z-index: 1;
   transition-delay: 480ms;
 }
 
 .story-fan__card:nth-child(11n+10) {
   width: 132px;
   height: 178px;
+  top: 20px;
+  z-index: 4;
   transition-delay: 540ms;
 }
 
 .story-fan__card:nth-child(11n+11) {
   width: 96px;
   height: 130px;
+  top: 62px;
+  z-index: 1;
   transition-delay: 600ms;
 }
 
@@ -1020,6 +1042,7 @@ body.intro-lock {
     align-items: flex-start;
     gap: 0.9rem;
     max-width: none;
+    cursor: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 1.3rem;
     padding: 0.4rem 1.3rem 1.4rem;
@@ -1029,6 +1052,9 @@ body.intro-lock {
     width: min(64vw, 240px);
     height: auto;
     aspect-ratio: 3 / 4;
+    top: 0;
+    margin-left: 0;
+    scroll-snap-align: start;
   }
 
   .story-fan__track .story-fan__parallax,
