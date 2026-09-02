@@ -69,7 +69,7 @@ const I18N = {
     storyEyebrow: "La nostra storia",
     storyTitle: "Un cammino, due cuori",
     storyText: [
-      "La nostra storia è iniziata tra i libri di una biblioteca, quasi per caso. Diversi, complici e curiosi l'uno dell'altra, abbiamo riempito il nostro cammino di viaggi, risate, avventure e sogni condivisi, lasciandoci sorprendere dall'altro e dalla vita e scoprendo che la strada più bella è quella che percorriamo insieme.",
+      "La nostra storia è iniziata tra i libri di una biblioteca, quasi per caso. Diversi ma complici e sempre curiosi l'uno dell'altra, abbiamo riempito il nostro cammino di viaggi, risate, avventure e sogni condivisi, lasciandoci sorprendere dall'altro e dalla vita, scoprendo che la strada più bella è quella che percorriamo insieme.",
       "E oggi, con il cuore pieno di gioia e forse un po' troppo entusiasmo, siamo felici di annunciarvi che il 7 novembre 2026 faremo il passo più bello: sposarci!",
       "Ci diremo quel “sì” che aspettavamo e daremo inizio al nostro “e vissero felici e contenti”.",
       "Tra foglie dorate, luci calde e la magia di un castello, non vediamo l'ora di condividere questo giorno con voi, le persone che amiamo di più."
@@ -121,7 +121,7 @@ const I18N = {
     placeholderMessage: "Scrivi qui i tuoi auguri...",
 
     giftToggle: "Per chi desiderasse farci un regalo",
-    giftIntro: "La vostra presenza è già il regalo più bello. Se desiderate contribuire al nostro viaggio di nozze, ecco i nostri dati per un bonifico:",
+    giftIntro: "La vostra presenza è il regalo più importante, ma se desiderate contribuire al nostro viaggio ecco qui come fare:",
     giftBeneficiaryLabel: "Beneficiario",
     giftIbanLabel: "IBAN",
     giftBicLabel: "BIC/SWIFT",
@@ -223,7 +223,7 @@ const I18N = {
     placeholderMessage: "Scrie aici gândurile tale bune...",
 
     giftToggle: "Pentru cei care doresc să ne facă un cadou",
-    giftIntro: "Prezența voastră este deja cel mai frumos cadou. Dacă doriți să contribuiți la călătoria noastră de nuntă, aici găsiți datele pentru un transfer bancar:",
+    giftIntro: "Prezența voastră este cel mai important cadou, dar dacă doriți să contribuiți la călătoria noastră, iată cum puteți face:",
     giftBeneficiaryLabel: "Beneficiar",
     giftIbanLabel: "IBAN",
     giftBicLabel: "BIC/SWIFT",
