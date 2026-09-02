@@ -1802,6 +1802,18 @@ body.intro-lock {
   gap: 0.8rem;
 }
 
+.photos__card--disabled .photos__qr {
+  opacity: 0.4;
+  filter: grayscale(60%);
+}
+
+.photos__card--disabled .photos__actions .btn {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* =========================================================================
    CONTACT
    ========================================================================= */

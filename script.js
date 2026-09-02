@@ -32,11 +32,15 @@ const CONFIG = {
   // Folderul Google Drive unde invitații încarcă pozele de la nuntă.
   photosDriveUrl: "https://drive.google.com/drive/folders/1cR65lmjh40W0C15fIjdQH6EtWqdyn_o_?usp=drive_link",
 
+  // Metti a true quando il servizio foto (upload + galleria) è pronto da mostrare.
+  // Pune true quando serviciul foto (încărcare + galerie) e gata de afișat.
+  photosServiceEnabled: false,
+
   // Luoghi (placeholder da modificare) / Locații (valori temporare de modificat)
   ceremony: {
     it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
     ro: { venue: "Parohia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
-    time: "11:30",
+    time: "10:45",
     // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
     // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
     mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
@@ -128,6 +132,7 @@ const I18N = {
     photosEyebrow: "Condividi i tuoi scatti",
     photosTitle: "Le foto della festa",
     photosText: "Scansiona il QR code o clicca qui sotto per caricare le foto che scatterai durante la giornata: le raccoglieremo tutte in un unico album.",
+    photosComingSoon: "Il servizio per caricare e vedere le foto sarà attivo il giorno della cerimonia: a breve trovi qui un modo semplice per condividere i tuoi scatti con tutti noi.",
     photosUploadCta: "Carica le tue foto",
     photosViewCta: "Guarda le foto",
     photosQrAlt: "QR code per caricare le foto del matrimonio",
@@ -229,6 +234,7 @@ const I18N = {
     photosEyebrow: "Distribuie pozele tale",
     photosTitle: "Pozele de la petrecere",
     photosText: "Scanează codul QR sau apasă mai jos pentru a încărca pozele făcute în ziua nunții: le vom aduna pe toate într-un singur album.",
+    photosComingSoon: "Serviciul de încărcare și vizualizare a pozelor va fi activ în ziua ceremoniei: în curând vei găsi aici un mod simplu de a le distribui tuturor.",
     photosUploadCta: "Încarcă pozele tale",
     photosViewCta: "Vezi pozele",
     photosQrAlt: "Cod QR pentru încărcarea pozelor de la nuntă",
@@ -339,7 +345,24 @@ function applyLanguage(lang) {
   document.getElementById("contactPhoneLink2").textContent = CONFIG.contactPhone2;
   document.getElementById("contactPhoneLink2").setAttribute("href", "tel:+39" + CONFIG.contactPhone2.replace(/\s+/g, ""));
 
-  document.getElementById("photosLink").setAttribute("href", CONFIG.photosDriveUrl);
+  const photosCard = document.querySelector(".photos__card");
+  const photosText = document.querySelector(".photos__text");
+  const photosLink = document.getElementById("photosLink");
+  const photosGalleryLink = document.getElementById("photosGalleryLink");
+  if (CONFIG.photosServiceEnabled) {
+    if (photosCard) photosCard.classList.remove("photos__card--disabled");
+    photosLink.setAttribute("href", CONFIG.photosDriveUrl);
+    photosLink.removeAttribute("aria-disabled");
+    photosGalleryLink.setAttribute("href", "gallery.html");
+    photosGalleryLink.removeAttribute("aria-disabled");
+  } else {
+    if (photosCard) photosCard.classList.add("photos__card--disabled");
+    photosLink.removeAttribute("href");
+    photosLink.setAttribute("aria-disabled", "true");
+    photosGalleryLink.removeAttribute("href");
+    photosGalleryLink.setAttribute("aria-disabled", "true");
+    if (photosText) photosText.textContent = t.photosComingSoon;
+  }
 
   updateAttendingUI();
   updatePlusOneUI();
