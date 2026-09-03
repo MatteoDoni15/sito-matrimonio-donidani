@@ -39,7 +39,7 @@ const CONFIG = {
   // Luoghi (placeholder da modificare) / Locații (valori temporare de modificat)
   ceremony: {
     it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
-    ro: { venue: "Parohia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
+    ro: { venue: "Biserică San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
     time: "10:45",
     // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
     // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
@@ -148,7 +148,7 @@ const I18N = {
 
     contactEyebrow: "Domande?",
     contactText: "Scrivici quando vuoi, a:",
-    footerThanks: "Con affetto,",
+    footerThanks: "Con amore,",
     footerHashtag: "#MatrimonioDoniDani",
 
     dateLocale: "it-IT",
