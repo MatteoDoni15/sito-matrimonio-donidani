@@ -40,7 +40,7 @@ const CONFIG = {
   ceremony: {
     it: { venue: "Parrocchia San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano)" },
     ro: { venue: "Biserică San Nazaro e Celso", address: "Via Roma 12, 20091 Bresso (Milano, Lombardia)" },
-    time: "10:45",
+    time: "10:30",
     // Link a Google Maps: apre l'app di navigazione sul telefono, o Google Maps nel browser.
     // Link către Google Maps: deschide aplicația de navigație pe telefon, sau Google Maps în browser.
     mapUrl: "https://maps.app.goo.gl/vKPqAv4opPwcRhDNA"
@@ -48,7 +48,7 @@ const CONFIG = {
   reception: {
     it: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
     ro: { venue: "Castello di Clanezzo", address: "Piazza Castello 4, 24010 Ubiale Clanezzo (Bergamo)" },
-    time: "13:45",
+    time: "13:15",
     mapUrl: "https://maps.app.goo.gl/N1EwTbrXoQiyZVzW8"
   }
 };
