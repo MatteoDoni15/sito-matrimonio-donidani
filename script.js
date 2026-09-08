@@ -168,7 +168,7 @@ const I18N = {
     storyTitle: "Un drum, două inimi",
     storyText: [
       "Povestea noastră a început printre cărțile unei biblioteci, aproape din întâmplare. Două suflete diferite, dar care s-au regăsit unul în celălalt, am pornit împreună la drum, descoperind, pas cu pas, bucuria călătoriilor, farmecul aventurilor, frumusețea visurilor împărtășite și nenumărate motive de a zâmbi.",
-      "Ne-am lăsat surprinși unul de celălalt și de viață și am înțeles că, dintre toate drumurile pe care le putem alege, cel mai frumos este cel pe care îl parcurgem împreună.",
+      "Ne-am lăsat surprinși unul de celălalt de viață și am înțeles că, dintre toate drumurile pe care le putem alege, cel mai frumos este cel pe care îl parcurgem împreună.",
       "Astăzi, cu inimile pline de emoție și bucurie, suntem fericiți să vă anunțăm că, pe 7 noiembrie 2026, vom face cel mai important și mai frumos pas al vieții noastre:",
       "ne vom căsători!",
       "Vom spune acel „DA” pe care l-am așteptat cu nerăbdare și vom începe împreună un nou capitol al poveștii noastre, cu promisiunea unei vieți pline de iubire, zâmbete și momente de neuitat.",
