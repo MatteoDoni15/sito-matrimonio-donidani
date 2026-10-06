@@ -206,6 +206,20 @@ function fetchPhotosJSONP(url) {
   });
 }
 
+/* Google ogni tanto risponde con una pagina d'errore invece dei dati: riproviamo
+   un paio di volte prima di mostrare l'errore. */
+async function fetchPhotosWithRetry(url) {
+  const delays = [1500, 4000];
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetchPhotosJSONP(url);
+    } catch (err) {
+      if (attempt >= delays.length) throw err;
+      await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
+    }
+  }
+}
+
 async function loadPhotos(isRefresh) {
   const t = GALLERY_I18N[currentLang];
 
@@ -218,7 +232,7 @@ async function loadPhotos(isRefresh) {
   if (!isRefresh) showState("loading", '<div class="gallery-spinner" aria-hidden="true"></div><p>' + t.loading + "</p>");
 
   try {
-    const data = await fetchPhotosJSONP(GALLERY_CONFIG.webAppUrl);
+    const data = await fetchPhotosWithRetry(GALLERY_CONFIG.webAppUrl);
     const newPhotos = (data && data.photos) || [];
 
     if (!newPhotos.length) {
