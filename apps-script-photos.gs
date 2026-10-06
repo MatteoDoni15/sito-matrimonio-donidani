@@ -65,17 +65,42 @@ function doPost(e) {
     const bytes = Utilities.base64Decode(String(body.data || ""));
     if (!bytes.length || bytes.length > MAX_UPLOAD_BYTES) return jsonOut({ ok: false, error: "size" });
 
+    // Ogni foto arriva con un codice univoco: se il telefono non riceve la risposta
+    // e rimanda la stessa foto, non la salviamo una seconda volta.
+    const uploadId = String(body.uploadId || "").replace(/[^\w-]/g, "").slice(0, 64);
+    const cache = CacheService.getScriptCache();
+    const cacheKey = "upload_" + uploadId;
+    if (uploadId) {
+      let seen = cache.get(cacheKey);
+      // Il primo invio e' ancora in corso: aspettiamo che finisca.
+      for (let i = 0; seen === "pending" && i < 20; i++) {
+        Utilities.sleep(1000);
+        seen = cache.get(cacheKey);
+      }
+      if (seen === "pending") return jsonOut({ ok: false, error: "busy" });
+      if (seen) return jsonOut({ ok: true, id: seen, duplicate: true });
+      cache.put(cacheKey, "pending", 600);
+    }
+
     const guest = cleanText(body.guest, 40);
     const ext = type.split("/")[1].replace("jpeg", "jpg");
     const stamp = Utilities.formatDate(new Date(), "Europe/Rome", "yyyyMMdd-HHmmss");
     const name = stamp + (guest ? "-" + guest.replace(/\s+/g, "_") : "") + "-" +
       Math.floor(Math.random() * 1e6) + "." + ext;
 
-    const blob = Utilities.newBlob(bytes, type, name);
-    const file = DriveApp.getFolderById(FOLDER_ID).createFile(blob);
+    let file;
+    try {
+      file = DriveApp.getFolderById(FOLDER_ID).createFile(Utilities.newBlob(bytes, type, name));
+    } catch (err) {
+      if (uploadId) cache.remove(cacheKey);
+      throw err;
+    }
+    // Segnata come salvata subito dopo la creazione: un errore nei passi successivi
+    // non deve portare il telefono a creare un doppione.
+    if (uploadId) cache.put(cacheKey, file.getId(), 21600);
+
     if (guest) file.setDescription("Caricata da / Încărcată de: " + guest);
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-
     return jsonOut({ ok: true, id: file.getId() });
   } catch (err) {
     return jsonOut({ ok: false, error: "server" });

@@ -7,7 +7,10 @@ const UPLOAD_OPTIONS = {
   maxSide: 2560,
   jpegQuality: 0.85,
   // Limite per i file che il browser non riesce a ridimensionare (es. HEIC su Android/PC).
-  maxOriginalBytes: 15 * 1024 * 1024
+  maxOriginalBytes: 15 * 1024 * 1024,
+  // Attese (ms) prima di ogni nuovo tentativo: con tanti invitati che caricano insieme
+  // Apps Script può rifiutare qualche richiesta, e il segnale in sala può essere debole.
+  retryDelays: [2000, 5000, 10000]
 };
 
 const UPLOAD_I18N = {
@@ -20,12 +23,13 @@ const UPLOAD_I18N = {
     nameLabel: "Il tuo nome (facoltativo)",
     pick: "Scegli le foto",
     pickMore: "Carica altre foto",
+    retry: (n) => n === 1 ? "Riprova la foto mancante" : "Riprova le " + n + " foto mancanti",
     gallery: "Guarda le foto",
     preparing: (i, n) => "Preparo la foto " + i + " di " + n + "...",
     sending: (i, n) => "Invio la foto " + i + " di " + n + "...",
     done: (n) => n === 1 ? "Grazie! La tua foto è stata caricata." : "Grazie! Sono state caricate " + n + " foto.",
-    partial: (ok, ko) => ok + " foto caricate, " + ko + " non sono riuscite: controlla la connessione e riprova con quelle mancanti.",
-    failed: "Non siamo riusciti a caricare le foto. Controlla la connessione e riprova.",
+    partial: (ok, ko) => ok + " foto caricate, " + ko + " non sono riuscite: controlla la connessione e tocca \"Riprova\".",
+    failed: "Non siamo riusciti a caricare le foto. Controlla la connessione e tocca \"Riprova\".",
     notReady: "Il caricamento delle foto non è ancora attivo: riprova il giorno della festa!",
     leaveWarning: "Il caricamento è ancora in corso."
   },
@@ -38,12 +42,13 @@ const UPLOAD_I18N = {
     nameLabel: "Numele tău (opțional)",
     pick: "Alege pozele",
     pickMore: "Încarcă alte poze",
+    retry: (n) => n === 1 ? "Reîncearcă poza lipsă" : "Reîncearcă cele " + n + " poze lipsă",
     gallery: "Vezi pozele",
     preparing: (i, n) => "Pregătesc poza " + i + " din " + n + "...",
     sending: (i, n) => "Trimit poza " + i + " din " + n + "...",
     done: (n) => n === 1 ? "Mulțumim! Poza ta a fost încărcată." : "Mulțumim! Au fost încărcate " + n + " poze.",
-    partial: (ok, ko) => ok + " poze încărcate, " + ko + " nu au reușit: verifică conexiunea și încearcă din nou cu cele lipsă.",
-    failed: "Nu am reușit să încărcăm pozele. Verifică conexiunea și încearcă din nou.",
+    partial: (ok, ko) => ok + " poze încărcate, " + ko + " nu au reușit: verifică conexiunea și apasă \"Reîncearcă\".",
+    failed: "Nu am reușit să încărcăm pozele. Verifică conexiunea și apasă \"Reîncearcă\".",
     notReady: "Încărcarea pozelor nu este încă activă: încearcă din nou în ziua petrecerii!",
     leaveWarning: "Încărcarea este încă în desfășurare."
   }
@@ -52,6 +57,20 @@ const UPLOAD_I18N = {
 let currentLang = "it";
 let uploading = false;
 let uploadedOnce = false;
+let failedFiles = [];
+// Codice univoco per ogni foto, riusato in tutti i tentativi (anche con "Riprova"):
+// cosi' lo script riconosce gli invii ripetuti e non salva doppioni.
+const uploadIds = new WeakMap();
+
+function uploadIdFor(file) {
+  if (!uploadIds.has(file)) {
+    const id = window.crypto && crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+    uploadIds.set(file, id);
+  }
+  return uploadIds.get(file);
+}
 
 function detectInitialLang() {
   const saved = localStorage.getItem("wedding-lang");
@@ -73,6 +92,7 @@ function applyLanguage(lang) {
   document.getElementById("uploadNameLabel").textContent = t.nameLabel;
   document.getElementById("uploadPick").textContent = uploadedOnce ? t.pickMore : t.pick;
   document.getElementById("uploadGalleryLink").textContent = t.gallery;
+  document.getElementById("uploadRetry").textContent = t.retry(failedFiles.length);
 
   document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
     const active = btn.getAttribute("data-lang-btn") === lang;
@@ -153,6 +173,8 @@ function blobToBase64(blob) {
   });
 }
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function sendPhoto(payload) {
   // text/plain evita la richiesta preflight CORS, che Apps Script non gestisce.
   const res = await fetch(PHOTOS_CONFIG.webAppUrl, {
@@ -164,14 +186,32 @@ async function sendPhoto(payload) {
   if (!data.ok) throw new Error(data.error || "server");
 }
 
+/* Riprova con attese crescenti (piu' un po' di casualita', cosi' i telefoni
+   non riprovano tutti nello stesso istante). Tipo o dimensione non validi non
+   migliorano riprovando. */
+async function sendWithRetry(payload) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await sendPhoto(payload);
+    } catch (e) {
+      if (e.message === "type" || e.message === "size") throw e;
+      if (attempt >= UPLOAD_OPTIONS.retryDelays.length) throw e;
+      await wait(UPLOAD_OPTIONS.retryDelays[attempt] + Math.random() * 1000);
+    }
+  }
+}
+
 async function uploadFiles(files) {
   const t = UPLOAD_I18N[currentLang];
   const guest = document.getElementById("uploadName").value.trim();
   const pick = document.getElementById("uploadPick");
-  let ok = 0, ko = 0;
+  const retry = document.getElementById("uploadRetry");
+  const failed = [];
+  let ok = 0;
 
   uploading = true;
   pick.disabled = true;
+  retry.hidden = true;
   showStatus(null);
 
   for (let i = 0; i < files.length; i++) {
@@ -182,21 +222,20 @@ async function uploadFiles(files) {
       const data = await blobToBase64(photo.blob);
 
       showProgress(i + 0.5, files.length, t.sending(n, files.length));
-      const payload = { type: photo.type, data, guest };
-      try {
-        await sendPhoto(payload);
-      } catch (e) {
-        await sendPhoto(payload); // un secondo tentativo per le connessioni ballerine
-      }
+      await sendWithRetry({ type: photo.type, data, guest, uploadId: uploadIdFor(files[i]) });
       ok++;
     } catch (e) {
-      ko++;
+      failed.push(files[i]);
     }
   }
 
   uploading = false;
   pick.disabled = false;
   showProgress(0, 0);
+  failedFiles = failed;
+  const ko = failed.length;
+  retry.hidden = !ko;
+  retry.textContent = t.retry(ko);
 
   if (ok) {
     uploadedOnce = true;
@@ -222,6 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!PHOTOS_CONFIG.webAppUrl) pick.disabled = true;
 
   pick.addEventListener("click", () => input.click());
+  document.getElementById("uploadRetry").addEventListener("click", () => {
+    if (failedFiles.length && !uploading) uploadFiles(failedFiles);
+  });
   input.addEventListener("change", () => {
     const files = Array.from(input.files || []);
     input.value = "";
