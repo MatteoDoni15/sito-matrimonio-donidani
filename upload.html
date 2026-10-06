@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carica le tue foto — Matteo &amp; Daniela</title>
+  <meta name="description" content="Carica le foto che hai scattato al matrimonio di Matteo e Daniela." />
+  <link rel="icon" type="image/jpeg" href="assets/Stemma_MD.jpeg" />
+  <link rel="stylesheet" href="assets/fonts-embed.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="gallery-page upload-page">
+
+  <header class="topbar">
+    <div class="lang-toggle" role="group" aria-label="Lingua della pagina / Limba paginii">
+      <button type="button" data-lang-btn="it" aria-pressed="true">IT</button>
+      <span class="lang-toggle__sep">/</span>
+      <button type="button" data-lang-btn="ro" aria-pressed="false">RO</button>
+    </div>
+    <a class="topbar__cta" href="index.html" id="uploadBackLink">Torna al sito</a>
+  </header>
+
+  <main>
+    <div class="gallery-header">
+      <p class="eyebrow" id="uploadEyebrow"></p>
+      <h1 id="uploadTitle"></h1>
+      <p class="gallery-subtitle" id="uploadSubtitle"></p>
+    </div>
+
+    <div class="upload-main">
+      <div class="upload-card" id="uploadCard">
+        <label class="upload-field">
+          <span id="uploadNameLabel"></span>
+          <input type="text" id="uploadName" maxlength="40" autocomplete="name" />
+        </label>
+
+        <input type="file" id="uploadInput" accept="image/*" multiple hidden />
+        <button type="button" class="btn btn--primary btn--block" id="uploadPick"></button>
+
+        <div class="upload-progress" id="uploadProgress" hidden>
+          <div class="upload-progress__bar"><span id="uploadProgressFill"></span></div>
+          <p id="uploadProgressText"></p>
+        </div>
+
+        <p class="upload-status" id="uploadStatus" role="status" aria-live="polite" hidden></p>
+      </div>
+
+      <div class="upload-links">
+        <a class="btn btn--secondary" href="gallery.html" id="uploadGalleryLink"></a>
+      </div>
+    </div>
+  </main>
+
+  <script src="photos-config.js"></script>
+  <script src="upload.js"></script>
+</body>
+
+</html>

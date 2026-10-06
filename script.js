@@ -28,13 +28,13 @@ const CONFIG = {
   // Lasă gol ("") ca să dezactivezi: site-ul funcționează la fel, doar prin email.
   googleSheetWebAppUrl: "https://script.google.com/macros/s/AKfycbxVejKK7wrmSr6dNof8jTR5hAsrS4EQdXi-_WzdkWXQ-u9jo1y2ItgAnJo-BfA1Md5T/exec",
 
-  // Cartella Google Drive dove gli invitati caricano le foto del matrimonio.
-  // Folderul Google Drive unde invitații încarcă pozele de la nuntă.
-  photosDriveUrl: "https://drive.google.com/drive/folders/1cR65lmjh40W0C15fIjdQH6EtWqdyn_o_?usp=drive_link",
+  // Pagina dove gli invitati caricano le foto (l'URL dell'Apps Script è in photos-config.js).
+  // Pagina unde invitații încarcă pozele (URL-ul Apps Script este în photos-config.js).
+  photosUploadUrl: "upload.html",
 
   // Metti a true quando il servizio foto (upload + galleria) è pronto da mostrare.
   // Pune true quando serviciul foto (încărcare + galerie) e gata de afișat.
-  photosServiceEnabled: false,
+  photosServiceEnabled: true,
 
   // Luoghi (placeholder da modificare) / Locații (valori temporare de modificat)
   ceremony: {
@@ -351,7 +351,7 @@ function applyLanguage(lang) {
   const photosGalleryLink = document.getElementById("photosGalleryLink");
   if (CONFIG.photosServiceEnabled) {
     if (photosCard) photosCard.classList.remove("photos__card--disabled");
-    photosLink.setAttribute("href", CONFIG.photosDriveUrl);
+    photosLink.setAttribute("href", CONFIG.photosUploadUrl);
     photosLink.removeAttribute("aria-disabled");
     photosGalleryLink.setAttribute("href", "gallery.html");
     photosGalleryLink.removeAttribute("aria-disabled");

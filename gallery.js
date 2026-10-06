@@ -1,10 +1,10 @@
 /* =========================================================================
    CONFIGURAZIONE GALLERIA / CONFIGURAREA GALERIEI
-   Incolla qui sotto l'URL dell'Apps Script (vedi apps-script-gallery.gs).
-   Lipeste mai jos URL-ul Apps Script (vezi apps-script-gallery.gs).
+   L'URL dell'Apps Script si imposta in photos-config.js.
+   URL-ul Apps Script se seteaza in photos-config.js.
    ========================================================================= */
 const GALLERY_CONFIG = {
-  webAppUrl: "",
+  webAppUrl: PHOTOS_CONFIG.webAppUrl,
   refreshMs: 25000
 };
 
@@ -16,8 +16,9 @@ const GALLERY_I18N = {
     title: "Le foto della festa",
     subtitle: "Le foto caricate dagli invitati durante la giornata, tutte in un unico posto: tocca una foto per ingrandirla e scorri tra le altre.",
     refresh: "Aggiorna",
+    upload: "Carica le tue foto",
     loading: "Carichiamo le foto...",
-    empty: "Non ci sono ancora foto. Scansiona il QR code nella pagina principale per caricarne una!",
+    empty: "Non ci sono ancora foto. Scansiona il QR code o tocca \"Carica le tue foto\" per aggiungerne una!",
     errorTitle: "Non riusciamo a caricare le foto",
     errorText: "Riprova tra un momento, oppure torna alla pagina principale per caricare le tue foto.",
     backCta: "Torna al sito",
@@ -34,8 +35,9 @@ const GALLERY_I18N = {
     title: "Pozele de la petrecere",
     subtitle: "Pozele încărcate de invitați în timpul zilei, toate într-un singur loc: atinge o poză pentru a o mări și derulează printre celelalte.",
     refresh: "Reîmprospătează",
+    upload: "Încarcă pozele tale",
     loading: "Se încarcă pozele...",
-    empty: "Nu sunt încă poze. Scanează codul QR de pe pagina principală pentru a încărca una!",
+    empty: "Nu sunt încă poze. Scanează codul QR sau apasă \"Încarcă pozele tale\" pentru a adăuga una!",
     errorTitle: "Nu putem încărca pozele",
     errorText: "Încearcă din nou peste puțin timp, sau întoarce-te pe pagina principală pentru a-ți încărca pozele.",
     backCta: "Înapoi la site",
@@ -74,6 +76,7 @@ function applyLanguage(lang) {
   document.getElementById("galleryTitle").textContent = t.title;
   document.getElementById("gallerySubtitle").textContent = t.subtitle;
   document.getElementById("galleryRefresh").textContent = t.refresh;
+  document.getElementById("galleryUploadLink").textContent = t.upload;
   document.getElementById("lightboxClose").setAttribute("aria-label", t.close);
   document.getElementById("lightboxPrev").setAttribute("aria-label", t.prev);
   document.getElementById("lightboxNext").setAttribute("aria-label", t.next);
